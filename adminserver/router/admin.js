@@ -438,23 +438,42 @@ administrator.get('/post-new', (req, res) => {
   let year = objectDate.getFullYear()
   let fulldate = year + '-' + month + '-' + day
 
-  let hours = objectDate.getHours() - 3
+  let hours = objectDate.getHours() - 2
   let minutes = objectDate.getMinutes()
-  let fulltime = '0' + hours + ':' + minutes
 
+  hoursNow = hours.toString();
+
+  let awa = hoursNow.substr(0, 1);
+  if (awa === "-") {
+    hoursNow = hoursNow.slice(1);
+  }
+
+  let len = hoursNow.length;
+
+  if (len === 1) {
+    hoursNow = "0" + hoursNow;
+  }
+
+
+  
+  let fulltime2 = hoursNow + ":" + minutes;
+  
   Post.findAll({
     where: {
       match_day: { [Sequelize.Op.gte]: fulldate },
-      match_time: { [Sequelize.Op.gte]: fulltime },
+      match_time: { [Sequelize.Op.gte]: fulltime2 },
     },
     order: [
       ['match_day', 'ASC'],
-      ['match_time', 'ASC'],
       ['priority', 'ASC'],
+      ['match_time', 'ASC'],
+      
     ],
   })
     .then((data) => {
-      res.send(data)
+      
+      res.status(200).send(data)
+ 
     })
     .catch((err) => res.status(400).send('Unable to fetch your requested data'))
 })
@@ -467,26 +486,50 @@ administrator.get('/post-new-update', (req, res) => {
   let year = objectDate.getFullYear()
   let fulldate = year + '-' + month + '-' + day
 
-  let hours = objectDate.getHours() - 3
+  let hours = objectDate.getHours() - 2
+  let hour = objectDate.getHours() 
+  let hourThree = objectDate.getHours() + 3
   let minutes = objectDate.getMinutes()
-  let fulltime = '0' + hours + ':' + minutes
+
+  hoursNow = hours.toString();
+
+  let awa = hoursNow.substr(0, 1);
+  if (awa === "-") {
+    hoursNow = hoursNow.slice(1);
+  }
+
+  if (!awa === "-") {
+    hoursNow = hour;
+  }
+
+  let len = hoursNow.length;
+
+  if (len === 1) {
+    hoursNow = "0" + hoursNow;
+  }
+
+ 
+  let fulltime2 = hoursNow + ":" + minutes;
 
   Post.findAll({
     where: {
       match_day: { [Sequelize.Op.gte]: fulldate },
-      match_time: { [Sequelize.Op.gte]: fulltime },
+      match_time: { [Sequelize.Op.gte]: fulltime2 },
     },
     order: [
       ['match_day', 'ASC'],
-      ['match_time', 'ASC'],
       ['priority', 'ASC'],
+      ['match_time', 'ASC'],
     ],
   })
     .then((data) => {
-      res.send(data)
+      
+      res.status(200).send(data)
+ 
     })
     .catch((err) => res.status(400).send('Unable to fetch your requested data'))
 })
+
 
 administrator.get('/post-old', (req, res) => {
   Post.findAll({
