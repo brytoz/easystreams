@@ -8,7 +8,7 @@ function App() {
 
   return (
     <Fragment>
-      <div className={darkMode && "darkMode"}>
+      <div className={darkMode ? "darkMode" : null}>
         <Stack />
       </div>
     </Fragment>

@@ -1,19 +1,67 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useLayoutEffect } from "react";
 import { BiFootball } from "react-icons/bi";
+import { FaTelegram } from "react-icons/fa";
 import BottomNav from "../component/BottomNav";
 import Footer from "../component/Footer";
 import Navbar from "../component/Navbar";
+import { motion } from "framer-motion";
 
 function Policy() {
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  });
+  
   return (
     <Fragment>
       <Navbar />
 
       <div className="md:px-32 xl:px-64  mt-6 font-bold text-3xl flex items-center space-x-6 ">
-              <BiFootball className="yellow" size={24} />{" "}
-              <h1 >Easystreams Terms</h1>{" "}
-              <BiFootball className="yellow" size={24} />
-            </div>
+        <BiFootball className="yellow" size={24} /> <h1>Easystreams Terms</h1>{" "}
+        <BiFootball className="yellow" size={24} />
+      </div>
+      <div className="w-full flex-wrap  h-48 mb-4 bg-yellow-500 flex items-center justify-center bold my-12 text-3xl text-[#182538] overflow-x-hidden">
+        <motion.div
+          initial={{ x: -100, opacity: 0, scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.3 }}
+          whileInView={{ x: 1, opacity: 1 }}
+          whileHover={{ scale: 1.2, z: 10 }}
+          exit={{ x: -100, opacity: 0 }}
+          whileTap={{ scale: 0.8 }}
+          className="w-full md:w-1/2 flex flex-wrap items-center  justify-center text-xl md:text-3xl"
+        >
+          <a href="https://t.me/easystreamsport">
+            {" "}
+            <FaTelegram className="  mr-2" size={72} />
+          </a>{" "}
+          <div className="block">
+            {" "}
+            <a
+              href="https://t.me/+cTOn5enFWBQ2YjJk"
+              className="bg-[#182538] px-2 py-1 rounded yellow"
+            >
+              Telegram
+            </a>
+          </div>
+        </motion.div>
+        <motion.div
+          initial={{ x: 100, opacity: 0, scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.3 }}
+          whileInView={{ x: 1, opacity: 1 }}
+          whileHover={{ scale: 1.2, z: 10 }}
+          exit={{ x: -100, opacity: 0 }}
+          whileTap={{ scale: 0.8 }}
+          className="w-full md:pt-4 md:mt-0 md:w-1/2 flex  justify-center  md:justify-start text-xl md:text-3xl pb-3 md:px-3 px-2"
+        >
+          <a
+            href="https://t.me/+cTOn5enFWBQ2YjJk"
+            className="bg-[#182538] px-2 py-1 rounded yellow"
+          >
+            Click here to get today's prediction for free.
+          </a>
+        </motion.div>
+      </div>
       <div className="flex justify-center items-center my-8 md:my-12 leading-loose ">
         <div className="flex-wrap justify-center items-center px-6 md:px-32 xl:px-64 space-y-12">
           {/* intro title  */}
@@ -46,7 +94,7 @@ function Policy() {
               </div>
             </div>
           </div>
-    
+
           {/* Account Deactivation*/}
           <div className="  flex  justify-center items-center pb-3">
             <div className="  space-y-3 flex-wrap justify-center items-center ">
@@ -92,15 +140,15 @@ function Policy() {
               <div className="text-base space-y-3 leading-loose  flex-wrap justify-center items-center">
                 <p>
                   Our site may contain links to other sites on the Internet. Or
-                  advertisements from other sites such as Google Advertiseense and we
-                  are not responsible for the methods of data collection by
-                  those sites. You can view the privacy policies and contents of
-                  those sites that are accessed through any link within this
+                  advertisements from other sites such as Google Advertiseense
+                  and we are not responsible for the methods of data collection
+                  by those sites. You can view the privacy policies and contents
+                  of those sites that are accessed through any link within this
                   site. We may use third-party advertising companies to display
-                  Advertise when you visit our website. These companies have the right
-                  to use information about your visits to this site and other
-                  websites (except for the name, address, e-mail address or
-                  phone number), in order to provide advertisements about the
+                  Advertise when you visit our website. These companies have the
+                  right to use information about your visits to this site and
+                  other websites (except for the name, address, e-mail address
+                  or phone number), in order to provide advertisements about the
                   goods and services that interest you. If you would like more
                   information on this matter as well as if you would like to
                   know your options for preventing this information from being

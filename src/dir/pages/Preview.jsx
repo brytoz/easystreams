@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useLayoutEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import BottomNav from "../component/BottomNav";
@@ -7,8 +7,8 @@ import Footer from "../component/Footer";
 import Loader from "../component/Loader";
 import Navbar from "../component/Navbar";
 import { BiFootball } from "react-icons/bi";
-import * as Img from "../component/Img";
-
+import { FaTelegram } from "react-icons/fa";
+import {motion} from 'framer-motion'
 
 function Preview() {
   axios.defaults.withCredentials = true;
@@ -45,6 +45,11 @@ function Preview() {
       }
     }
   };
+
+  useLayoutEffect(() => {
+    window.scrollTo(0,0)
+    
+    })
   useEffect(() => {
     check();
   }, [id]);
@@ -78,8 +83,48 @@ function Preview() {
           <BiFootball className="yellow" size={32} />
         </div>
         
-        <div className="w-full h-48 bg-yellow-400 flex items-center justify-center bold my-12 text-3xl">
-          Advertise Here
+        <div className="w-full flex-wrap  h-48 mb-4 bg-yellow-500 flex items-center justify-center bold my-12 text-3xl text-[#182538] overflow-x-hidden">
+          <motion.div
+            initial={{ x: -100, opacity: 0, scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.3 }}
+            whileInView={{ x: 1, opacity: 1 }}
+            whileHover={{ scale: 1.2, z: 10 }}
+            exit={{ x: -100, opacity: 0 }}
+            whileTap={{ scale: 0.8 }}
+            className="w-full md:w-1/2 flex flex-wrap items-center  justify-center text-xl md:text-3xl"
+          >
+            <a href="https://t.me/easystreamsport">
+              {" "}
+              <FaTelegram className="  mr-2" size={72} />
+            </a>{" "}
+            <div className="block">
+              {" "}
+              <a
+                href="https://t.me/+cTOn5enFWBQ2YjJk"
+                className="bg-[#182538] px-2 py-1 rounded yellow"
+              >
+                Telegram
+              </a>
+            </div>
+          </motion.div>
+          <motion.div
+            initial={{ x: 100, opacity: 0, scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.3 }}
+            whileInView={{ x: 1, opacity: 1 }}
+            whileHover={{ scale: 1.2, z: 10 }}
+            exit={{ x: -100, opacity: 0 }}
+            whileTap={{ scale: 0.8 }}
+            className="w-full md:pt-4 md:mt-0 md:w-1/2 flex  justify-center  md:justify-start text-xl md:text-3xl pb-3 md:px-3 px-2"
+          >
+            <a
+              href="https://t.me/+cTOn5enFWBQ2YjJk"
+              className="bg-[#182538] px-2 py-1 rounded yellow"
+            >
+              Click here to get today's prediction for free.
+            </a>
+          </motion.div>
         </div>
         <div className="relative w-full md:flex md:justify-start ">
           <div className="w-full  md:w-1/5">

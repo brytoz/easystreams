@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useLayoutEffect, useState } from "react";
 import { BiFootball } from "react-icons/bi";
 import BottomNav from "../component/BottomNav";
 import Footer from "../component/Footer"; 
@@ -21,6 +21,11 @@ function LeagueStanding() {
   const [france, setFrance] = useState(false);
   const [italy, setItaly] = useState(false);
   const [holland, setHolland] = useState(false);
+
+  useLayoutEffect(() => {
+    window.scrollTo(0,0)
+    
+    })
 
   const showEngland = () => {
     setEngland(true);

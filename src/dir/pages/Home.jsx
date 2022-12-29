@@ -1,44 +1,53 @@
 import axios from "axios";
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import BottomNav from "../component/BottomNav";
 import Footer from "../component/Footer";
 import Loader from "../component/Loader";
 import MatchLists from "../component/MatchLists";
 import Navbar from "../component/Navbar";
-import * as Img from "../component/Img";
 import Hero from "../component/Hero";
 import { BiFootball } from "react-icons/bi";
 import { FaBasketballBall, FaTelegram } from "react-icons/fa";
 import { GiTennisRacket } from "react-icons/gi";
 import { motion } from "framer-motion";
+import { PulseNotification } from "../component/PulseNotification";
 
+let dateTwo;
+let dateOne;
 function Home() {
   axios.defaults.withCredentials = true;
-
-  const navigate = useNavigate();
 
   const { data, isError, isLoading } = useQuery(
     ["match-details"],
     async () => await axios.get(`${process.env.REACT_APP_ADMIN}/post-new`)
   );
 
-  let objectDate = new Date();
-  let day = objectDate.getDate();
-  let month = objectDate.getMonth() + 1;
-  let year = objectDate.getFullYear();
-  let fulldate = year + "-" + month + "-" + day;
+  let objDate = new Date();
+  let dd = objDate.getDate();
+  let mm = objDate.getMonth() + 1;
+  let yy = objDate.getFullYear();
+  let Ddatef = yy + "-" + mm + "-" + dd;
+  let datef = Ddatef.toString();
 
-  let hoursNow = objectDate.getHours() - 2;
-  let minutes = objectDate.getMinutes();
-  let fulltime2 = hoursNow + ":" + minutes;
+  let Now = objDate.getHours() + 2;
+  let hoursNow = objDate.getHours() - 2;
+  let minutes = objDate.getMinutes();
 
-  let dateTwo = fulldate + ":" + fulltime2;
+  let full_time2 = hoursNow + ":" + minutes;
+  let full_time = Now + ":" + minutes;
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  let fulltime2 = full_time2.toString();
+  let fulltime = full_time.toString();
+
+  useEffect(() => {
+    // return (() => getTheTime())
+  }, []);
+
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
   return (
     <Fragment>
       <Navbar />
@@ -101,7 +110,24 @@ function Home() {
               </div>
               {data
                 ? data.data.slice(0, 10).map((data) => {
-                    const dateMatch = data.match_day + ":" + data.match_time;
+                    const refs = data.match_time.substr(0, 2);
+                    const date = new Date();
+                    const dateNow = new Date();
+                    date.setHours(date.getHours() - 2);
+                    dateNow.setHours(dateNow.getHours() + 2);
+                    const timeString = date.toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: false,
+                    });
+                    const timeStringNow = dateNow.toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: false,
+                    });
+                    console.log(timeStringNow);
+                    console.log(timeString);
+                    // console.log(refs, 'ddd');
                     return (
                       <MatchLists
                         key={data.id}
@@ -109,19 +135,20 @@ function Home() {
                         home={data.home_team}
                         // sportType={data.sport_type}
                         time={
-                          data
-                            ? dateTwo > dateMatch
-                              ? "Live"
-                              : data.match_time
-                            : null
+                          data ? (
+                            datef === data.match_day ? (
+                              timeString <= data.match_time  &&
+                              timeStringNow >= data.match_time ? (
+                                <PulseNotification />
+                              ) : (
+                                data.match_time
+                              )
+                            ) : (
+                              data.match_time
+                            )
+                          ) : null
                         }
-                        day={
-                          data
-                            ? dateTwo > dateMatch
-                              ? "Ongoing"
-                              : data.match_day
-                            : null
-                        }
+                        day={data.match_day}
                         img1={`https://server.easystreams.net/${data.home_img}`}
                         img2={`https://server.easystreams.net/${data.away_img}`}
                         linkId={data.ref}

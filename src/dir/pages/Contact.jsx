@@ -1,10 +1,15 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useLayoutEffect } from "react";
 import { BiFootball } from "react-icons/bi";
 import BottomNav from "../component/BottomNav";
 import Footer from "../component/Footer";
 import Navbar from "../component/Navbar";
 
 function Contact() {
+
+  useLayoutEffect(() => {
+    window.scrollTo(0,0)
+    
+    })
   return (
     <Fragment>
       <Navbar />

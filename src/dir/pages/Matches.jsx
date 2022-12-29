@@ -1,14 +1,16 @@
 import axios from "axios";
 import { motion } from "framer-motion";
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, {
+  Fragment,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { BiFootball } from "react-icons/bi";
 import { FaBasketballBall, FaTelegram } from "react-icons/fa";
 import { GiTennisRacket } from "react-icons/gi";
-import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
 import BottomNav from "../component/BottomNav";
 import Footer from "../component/Footer";
-import Loader from "../component/Loader";
 import MatchLists from "../component/MatchLists";
 import Navbar from "../component/Navbar";
 let first = null;
@@ -16,14 +18,8 @@ let second = null;
 function Matches() {
   axios.defaults.withCredentials = true;
 
-  const navigate = useNavigate();
   const [newM, setNew] = useState(false);
   const [old, setOld] = useState(true);
-
-  // const { data, isError, isLoading } = useQuery(
-  //   ["match-details"],
-  //   async () => await axios.get(`${process.env.REACT_APP_ADMIN}/post`)
-  // );
 
   const fetchData = async () => {
     const dataOneAPI = `${process.env.REACT_APP_ADMIN}/post-old`;
@@ -45,8 +41,8 @@ function Matches() {
         if (secondAPI) {
           second = [];
           secondAPI.map((data) => {
-            second.push(data)
-          })
+            second.push(data);
+          });
         }
       })
     );
@@ -67,15 +63,13 @@ function Matches() {
   let dateOne = fulldate + ":" + fulltime;
   let dateTwo = fulldate + ":" + fulltime2;
 
-
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  });
   useEffect(() => {
     fetchData();
   }, []);
 
-
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
   const showOldMatch = () => {
     setNew(false);
     setOld(true);
@@ -174,45 +168,56 @@ function Matches() {
             {newM
               ? second
                 ? second.map((data) => {
-                  const dateMatch = data.match_day+':'+data.match_time
-                  
-                  return (
-                    <MatchLists
-                      key={data.id}
-                      away={data.away_team}
-                      home={data.home_team}
-                      // sportType={data.sport_type} 
-                      img1={`https://server.easystreams.net/${data.home_img}`}
-                      img2={`https://server.easystreams.net/${data.away_img}`}
-                      linkId={data.ref}
-                      link={data.id}
-                      day={data ? dateTwo  > dateMatch  ?  'Ongoing' : data.match_day : null
-                      }
-                      time={data ? dateTwo  > dateMatch  ?  'Live' : data.match_time : null
-                    }
-                      country={data.league}
-                      sport_icon={
-                        data.sport_type === "Football" ? (
-                          <div className="flex items-center space-x-2">
-                            <BiFootball className="white" size={32} />{" "}
-                            <span> Football </span>{" "}
-                          </div>
-                        ) : data.sport_type === "Tennis" ? (
-                          <div className="flex items-center space-x-2">
-                            <GiTennisRacket className="green" size={32} />{" "}
-                            <span> Tennis </span>{" "}
-                          </div>
-                        ) : data.sport_type === "Basketball" ? (
-                          <div className="flex items-center space-x-2">
-                            <FaBasketballBall className="brown" size={32} />
-                            <span>Basketball </span>{" "}
-                          </div>
-                        ) : (
-                          "Sport"
-                        )
-                      }
-                    />
-                  )})
+                    const dateMatch = data.match_day + ":" + data.match_time;
+
+                    return (
+                      <MatchLists
+                        key={data.id}
+                        away={data.away_team}
+                        home={data.home_team}
+                        // sportType={data.sport_type}
+                        img1={`https://server.easystreams.net/${data.home_img}`}
+                        img2={`https://server.easystreams.net/${data.away_img}`}
+                        linkId={data.ref}
+                        link={data.id}
+                        day={
+                          data
+                            ? dateTwo > dateMatch
+                              ? "Ongoing"
+                              : data.match_day
+                            : null
+                        }
+                        time={
+                          data
+                            ? dateTwo > dateMatch
+                              ? "Live"
+                              : data.match_time
+                            : null
+                        }
+                        country={data.league}
+                        sport_icon={
+                          data.sport_type === "Football" ? (
+                            <div className="flex items-center space-x-2">
+                              <BiFootball className="white" size={32} />{" "}
+                              <span> Football </span>{" "}
+                            </div>
+                          ) : data.sport_type === "Tennis" ? (
+                            <div className="flex items-center space-x-2">
+                              <GiTennisRacket className="green" size={32} />{" "}
+                              <span> Tennis </span>{" "}
+                            </div>
+                          ) : data.sport_type === "Basketball" ? (
+                            <div className="flex items-center space-x-2">
+                              <FaBasketballBall className="brown" size={32} />
+                              <span>Basketball </span>{" "}
+                            </div>
+                          ) : (
+                            "Sport"
+                          )
+                        }
+                      />
+                    );
+                  })
                 : null
               : null}
 
