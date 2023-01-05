@@ -74,8 +74,6 @@ function Post() {
   //   }
   // };
 
-
-
   const handleFormUpload = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -106,9 +104,9 @@ function Post() {
             setSuccess(true);
             console.log(result)
             setStatus(result.data);
-            // setTimeout(() => {
-            //   window.location.reload(true);
-            // }, 3000);
+            setTimeout(() => {
+              window.location.reload(true);
+            }, 7000);
           } else {
             setError(true);
             setStatus(result.data);

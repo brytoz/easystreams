@@ -46,13 +46,7 @@ function AllPost() {
           setInfo(result.data);
           const sef =
             result.data[0].match_day + ":" + result.data[0].match_time;
-          console.log(sef);
-          console.log(boti, "dr");
-          if (sef > boti ) {
-            console.log("yesd");
-          } else {
-            console.log("nod");
-          }
+          
         });
       } catch (err) {
         console.log(err);
@@ -69,10 +63,10 @@ function AllPost() {
         })
         .then(async (result) => {
           setStatus(result.data);
-
           setTimeout(() => {
-            setStatus("");
-          }, 5000);
+            window.location.reload(true);
+          }, 3000);
+           
         });
     } catch (err) {
       // console.log(err.message);
@@ -132,11 +126,11 @@ function AllPost() {
                           {datas.match_day} {datas.match_time}
                         </td>
                         <td className="py-4 px-6">
-                          {datas.priority == "A"
+                          {datas.priority === "A"
                             ? "High"
-                            : datas.priority == "B"
+                            : datas.priority === "B"
                             ? "Medium"
-                            : datas.priority == "C"
+                            : datas.priority === "C"
                             ? "Low"
                             : "Very Low"}
                         </td>

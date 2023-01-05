@@ -432,112 +432,140 @@ administrator.get('/post', (req, res) =>
 
 // get all new posts
 administrator.get('/post-new', (req, res) => {
+ 
   let objectDate = new Date()
   let day = objectDate.getDate()
-  let month = objectDate.getMonth() + 1
-  let year = objectDate.getFullYear()
-  let fulldate = year + '-' + month + '-' + day
-
-  let hours = objectDate.getHours() - 2
-  let minutes = objectDate.getMinutes()
-
-  hoursNow = hours.toString();
-
-  let awa = hoursNow.substr(0, 1);
-  if (awa === "-") {
-    hoursNow = hoursNow.slice(1);
-  }
-
-  let len = hoursNow.length;
-
-  if (len === 1) {
-    hoursNow = "0" + hoursNow;
-  }
-
-
+  if (day < 10) day = '0' + day;
   
-  let fulltime2 = hoursNow + ":" + minutes;
+  let month = objectDate.getMonth() + 1;
+  if (month < 10) month = '0' + month;
   
+  let year = objectDate.getFullYear();
+  let fulldate = year + '-' + month + '-' + day;
+
+  // let hours = objectDate.getHours() - 1
+  // let minutes = objectDate.getMinutes()
+  // let fulltime =   hours + ':' + minutes
+
+  let date = new Date()
+  date.setHours(date.getHours() - 2)
+
+ 
+  let timeMinus = date.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  })
+
+  let t = '01:59' ;
   Post.findAll({
     where: {
-      match_day: { [Sequelize.Op.gte]: fulldate },
-      match_time: { [Sequelize.Op.gte]: fulltime2 },
+    match_day: { [Sequelize.Op.gte]: fulldate },
+    match_time: {
+      [Sequelize.Op.or]: {
+        [Sequelize.Op.gte]: timeMinus,
+        [Sequelize.Op.lte]: t,
+      },
     },
+  
+    $and: Sequelize.where(
+      Sequelize.fn('char_length', Sequelize.col('scores')),
+      {
+        [Sequelize.Op.lte]: 1,
+      }, 
+    ),
+  },
     order: [
       ['match_day', 'ASC'],
       ['priority', 'ASC'],
       ['match_time', 'ASC'],
-      
     ],
   })
     .then((data) => {
-      
       res.status(200).send(data)
- 
     })
     .catch((err) => res.status(400).send('Unable to fetch your requested data'))
 })
 
-// get all new posts
+// get all upcoming posts
+administrator.get('/post-upcoming', (req, res) => {
+ 
+  let objectDate = new Date()
+  let day = objectDate.getDate()
+  if (day < 10) day = '0' + day;
+  
+  let month = objectDate.getMonth() + 1;
+  if (month < 10) month = '0' + month;
+  
+  let year = objectDate.getFullYear();
+  let fulldate = year + '-' + month + '-' + day;
+ 
+  Post.findAll({
+    where: {
+    match_day: { [Sequelize.Op.gt]: fulldate },
+  },
+    order: [
+      ['match_day', 'ASC'],
+      ['match_time', 'ASC'],
+      ['priority', 'ASC'],
+    ],
+  })
+    .then((data) => {
+      res.status(200).send(data)
+    })
+    .catch((err) => res.status(400).send('Unable to fetch your requested data'))
+})
+
+// get all new update posts
 administrator.get('/post-new-update', (req, res) => {
+
   let objectDate = new Date()
   let day = objectDate.getDate()
-  let month = objectDate.getMonth() + 1
-  let year = objectDate.getFullYear()
-  let fulldate = year + '-' + month + '-' + day
+  if (day < 10) day = '0' + day;
+  
+  let month = objectDate.getMonth() + 1;
+  if (month < 10) month = '0' + month;
+  
+  let year = objectDate.getFullYear();
+  let fulldate = year + '-' + month + '-' + day;
 
-  let hours = objectDate.getHours() - 2
-  let hour = objectDate.getHours() 
-  let hourThree = objectDate.getHours() + 3
+  let hours = objectDate.getHours() - 1
   let minutes = objectDate.getMinutes()
+  let fulltime =   hours + ':' + minutes
 
-  hoursNow = hours.toString();
-
-  let awa = hoursNow.substr(0, 1);
-  if (awa === "-") {
-    hoursNow = hoursNow.slice(1);
-  }
-
-  if (!awa === "-") {
-    hoursNow = hour;
-  }
-
-  let len = hoursNow.length;
-
-  if (len === 1) {
-    hoursNow = "0" + hoursNow;
-  }
-
- 
-  let fulltime2 = hoursNow + ":" + minutes;
-
+  // Post.findAll({
+  //   where: {
+  //     match_day: { [Sequelize.Op.gte]: fulldate },
+  //     match_time: { [Sequelize.Op.gte]: fulltime },
+  //   },
+  //   order: [
+  //     ['match_day', 'ASC'],
+  //     ['match_time', 'ASC'],
+  //     ['priority', 'ASC'],
+  //   ],
+  // })
   Post.findAll({
     where: {
-      match_day: { [Sequelize.Op.gte]: fulldate },
-      match_time: { [Sequelize.Op.gte]: fulltime2 },
+      match_day:  { [Sequelize.Op.gte]: fulldate },  
     },
     order: [
       ['match_day', 'ASC'],
-      ['priority', 'ASC'],
-      ['match_time', 'ASC'],
+      ['match_time', 'DESC'],
     ],
   })
     .then((data) => {
-      
-      res.status(200).send(data)
- 
+      res.send(data)
     })
     .catch((err) => res.status(400).send('Unable to fetch your requested data'))
 })
-
 
 administrator.get('/post-old', (req, res) => {
   Post.findAll({
     where: Sequelize.where(
       Sequelize.fn('char_length', Sequelize.col('scores')),
       {
-        [Sequelize.Op.gt]: 1,
-      },
+        [Sequelize.Op.gt]: 2,
+      }, 
     ),
     order: [
       ['match_day', 'DESC'],
