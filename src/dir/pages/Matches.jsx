@@ -9,6 +9,10 @@ import Footer from "../component/Footer";
 import MatchLists from "../component/MatchLists";
 import Navbar from "../component/Navbar";
 import { PulseNotification } from "../component/PulseNotification";
+import moment from "moment-timezone";
+
+
+
 let first = null;
 let second = null;
 let third = null;
@@ -47,40 +51,12 @@ function Matches() {
       })
     );
   };
-
-  let objDate = new Date();
-  let dd = objDate.getDate();
-  if (dd < 10) dd = "0" + dd;
-  let mm = objDate.getMonth() + 1;
-  if (mm < 10) mm = "0" + mm;
-  let yy = objDate.getFullYear();
-  let Ddatef = yy + "-" + mm + "-" + dd;
-  let datef = Ddatef.toString();
-
-  // time
-  // let hours = objDate.getHours()  - 2
-  // if(hours < 10) hours = '0' + hours
-  // let minutes = objDate.getMinutes()
-  // if(minutes < 10) minutes = '0' + minutes
-  // let fulltime =   hours + ':' + minutes
-
-  let now = new Date();
-  now.setHours(now.getHours());
-
-  let timeNow = now.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
-
-  let minus = new Date();
-  minus.setHours(minus.getHours() - 2);
-
-  let timeMinus = minus.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
+ 
+  const dtime = moment().tz('Africa/Lagos').format('HH:mm') 
+  const dtimeAgo = moment().tz('Africa/Lagos').subtract(2, 'hours').format('HH:mm') 
+  const dDate = moment().tz('Africa/Lagos').format('YYYY-MM-DD') 
+  
+ 
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
@@ -200,43 +176,19 @@ function Matches() {
                         linkId={data.ref}
                         link={data.id}
                         time={
-                          data ? (
-                            datef === data.match_day ? (
-                              data.match_time <= timeNow ? (
-                                data.match_time >= timeMinus ? (
-                                  <PulseNotification />
-                                ) : timeMinus > data.match_time ? (
-                                  ""
-                                ) : (
-                                  data.match_time
-                                )
-                              ) : (
-                                data.match_time
-                              )
-                            ) : (
-                              data.match_time
-                            )
-                          ) : null
-                        }
+                          data ? dDate === data.match_day ? (
+                            data.match_time <= dtime ? (data.match_time >= dtimeAgo ? <PulseNotification /> : dtimeAgo > data.match_time ? '' : data.match_time) : data.match_time) : data.match_time
+                          : null
+                        } 
                         day={
-                          data ? (
-                            datef === data.match_day ? (
-                              data.match_time <= timeNow ? (
-                                data.match_time >= timeMinus ? (
-                                  ""
-                                ) : timeMinus > data.match_time ? (
-                                  <div className="text-xl">Finished</div>
-                                ) : (
-                                  data.match_day
-                                )
-                              ) : (
-                                data.match_day
-                              )
-                            ) : (
-                              data.match_day
-                            )
-                          ) : null
+                          data ? dDate === data.match_day ? (
+                          data.match_time <= dtime ? (data.match_time >= dtimeAgo ? '' : dtimeAgo > data.match_time ? 
+                          <div className="text-xl">
+                            Finished
+                          </div> : data.match_day) : data.match_day) : data.match_day
+                        : null
                         }
+                        
                         country={data.league}
                         sport_icon={
                           data.sport_type === "Football" ? (
