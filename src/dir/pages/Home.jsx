@@ -14,21 +14,25 @@ import { GiTennisRacket } from "react-icons/gi";
 import { motion } from "framer-motion";
 import { PulseNotification } from "../component/PulseNotification";
 import moment from "moment-timezone";
+import AdSense from "react-adsense";
+// import Ad from "react-adsense";
 
- 
 export default function Home() {
   axios.defaults.withCredentials = true;
 
-  const { data,  isLoading } = useQuery(
+  const { data, isLoading } = useQuery(
     ["match-details"],
     async () => await axios.get(`${process.env.REACT_APP_ADMIN}/post-new`)
   );
 
-const dtime = moment().tz('Africa/Lagos').format('HH:mm') 
-const dtimeAgo = moment().tz('Africa/Lagos').subtract(2, 'hours').format('HH:mm') 
-const dDate = moment().tz('Africa/Lagos').format('YYYY-MM-DD') 
- 
-if(isLoading) return <Loader />
+  const dtime = moment().tz("Africa/Lagos").format("HH:mm");
+  const dtimeAgo = moment()
+    .tz("Africa/Lagos")
+    .subtract(2, "hours")
+    .format("HH:mm");
+  const dDate = moment().tz("Africa/Lagos").format("YYYY-MM-DD");
+
+  if (isLoading) return <Loader />;
 
   return (
     <Fragment>
@@ -81,40 +85,60 @@ if(isLoading) return <Loader />
         <div className="relative w-full md:flex md:justify-start">
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full  flex items-center justify-center bold my-12 text-3xl">
-              Advertise Here
+              {/* google ads */}
             </div>
           </div>
           <div className="w-full md:w-3/5 px-2">
             <div className="w-full flex-wrap">
-             
               <div className="mt-6 mb-6 font-bold text-3xl flex items-center space-x-6 ">
                 <BiFootball className="yellow" size={32} /> <h1>Streaming</h1>{" "}
                 <BiFootball className="yellow" size={32} />
               </div>
               {data
                 ? data.data.slice(0, 10).map((data) => {
-
-                    
-                     
- 
                     return (
                       <MatchLists
                         key={data.id}
                         away={data.away_team}
                         home={data.home_team}
-                       time={
-                            data ? dDate === data.match_day ? (
-                              data.match_time <= dtime ? (data.match_time >= dtimeAgo ? <PulseNotification /> : dtimeAgo > data.match_time ? '' : data.match_time) : data.match_time) : data.match_time
-                            : null
-                          } 
-                          day={
-                            data ? dDate === data.match_day ? (
-                            data.match_time <= dtime ? (data.match_time >= dtimeAgo ? '' : dtimeAgo > data.match_time ? 
-                            <div className="text-xl">
-                              Finished
-                            </div> : data.match_day) : data.match_day) : data.match_day
-                          : null
-                          }
+                        time={
+                          data ? (
+                            dDate === data.match_day ? (
+                              data.match_time <= dtime ? (
+                                data.match_time >= dtimeAgo ? (
+                                  <PulseNotification />
+                                ) : dtimeAgo > data.match_time ? (
+                                  ""
+                                ) : (
+                                  data.match_time
+                                )
+                              ) : (
+                                data.match_time
+                              )
+                            ) : (
+                              data.match_time
+                            )
+                          ) : null
+                        }
+                        day={
+                          data ? (
+                            dDate === data.match_day ? (
+                              data.match_time <= dtime ? (
+                                data.match_time >= dtimeAgo ? (
+                                  ""
+                                ) : dtimeAgo > data.match_time ? (
+                                  <div className="text-xl">Finished</div>
+                                ) : (
+                                  data.match_day
+                                )
+                              ) : (
+                                data.match_day
+                              )
+                            ) : (
+                              data.match_day
+                            )
+                          ) : null
+                        }
                         img1={`https://server.easystreams.net/${data.home_img}`}
                         img2={`https://server.easystreams.net/${data.away_img}`}
                         linkId={data.ref}
@@ -151,12 +175,35 @@ if(isLoading) return <Loader />
                   </span>
                 </Link>
               </div>
+              {/* <Ad
+                client="ca-pub-8640143531086883"
+                slot="5881219350"
+                style={{
+                  display:'block',
+                  backgroundColor: "red",
+                }}
+                layout='in-article' 
+                format='fluid'
+                responsive='true'
+                layoutKey="-fb+5w+4e-db+86"
+              /> */}
+{/* 
+              <AdSense.Google
+                client="ca-pub-8640143531086883"
+                slot="9331162165"
+                style={{
+                  display: "block", 
+                }}
+                layout="in-article"
+                format="auto"
+                responsive="true"
+              /> */}
             </div>
           </div>
 
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full  flex items-center justify-center bold my-12 text-3xl">
-              Advertise Here
+              {/* google ads */}
             </div>
           </div>
         </div>

@@ -29,13 +29,13 @@ function MatchLists({
             </div>
             <div className="flex w-full   justify-between items-center">
               <div className="flex-wrap">
-                <div className=" text-xl md:text-2xl pt-2 flex items-center space-x-2 ">
+                <div className=" text-base md:text-xl pt-2 flex items-center space-x-2 ">
                   {" "}
                   <img alt="team 1" className="h-10 w-10 rounded-full text-sm " src={img1} />
                   <div className="capitalize"> {home}</div>
                 </div>
 
-                <div className=" text-xl md:text-2xl pt-2 flex items-center space-x-2 ">
+                <div className=" text-base md:text-xl pt-2 flex items-center space-x-2 ">
                   {" "}
                   <img
                     alt="team 2"
@@ -46,7 +46,7 @@ function MatchLists({
                 </div>
               </div>
 
-              <div className="text-base text-center opacity-75 flex-wrap justify-center">
+              <div className="text-sm text-center opacity-75 flex-wrap justify-center">
                 <div>{day}</div>
                 <div>{time}</div>
               </div>

@@ -66,7 +66,7 @@ function Preview() {
           <BiFootball className="yellow" size={32} />{" "}
           <h1>
             {data ? (
-              <div className="flex items-center justify-center">
+              <div className="flex items-center justify-center text-base">
                 <img
                   alt="team 1"
                   className="h-12 w-12 rounded-full pr-2 text-sm "
@@ -129,7 +129,7 @@ function Preview() {
         <div className="relative w-full md:flex md:justify-start ">
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full bg-yellow-400 flex items-center justify-center bold my-12 text-3xl">
-              Advertise Here
+              {/* google ads */}
             </div>
           </div>
           <div className="w-full md:w-3/5 px-2">
@@ -293,7 +293,7 @@ function Preview() {
 
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full bg-yellow-400 flex items-center justify-center bold my-12 text-3xl">
-              Advertise Here
+              {/* google ads */}
             </div>
           </div>
         </div>

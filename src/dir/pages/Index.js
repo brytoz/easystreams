@@ -111,7 +111,7 @@ export default function Index() {
         <div className="relative w-full md:flex md:justify-start">
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full  flex items-center justify-center bold my-12 text-3xl">
-              Advertise Here
+              google ads
             </div>
           </div>
           <div className="w-full md:w-3/5 px-2">
@@ -229,7 +229,7 @@ export default function Index() {
 
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full  flex items-center justify-center bold my-12 text-3xl">
-              Advertise Here
+              google ads
             </div>
           </div>
         </div>
