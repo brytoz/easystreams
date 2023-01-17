@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import BottomNav from "../component/BottomNav";
@@ -14,16 +14,22 @@ import { GiTennisRacket } from "react-icons/gi";
 import { motion } from "framer-motion";
 import { PulseNotification } from "../component/PulseNotification";
 import moment from "moment-timezone";
-import AdSense from "react-adsense";
-// import Ad from "react-adsense";
+import { Adsense } from "@ctrl/react-adsense";
+// import AdSense from "react-adsense";
 
-export default function Home() {
+export default function Home(props) {
   axios.defaults.withCredentials = true;
+  const { currentPath } = props;
 
   const { data, isLoading } = useQuery(
     ["match-details"],
     async () => await axios.get(`${process.env.REACT_APP_ADMIN}/post-new`)
   );
+  useEffect(() => {
+    
+    window.adsbygoogle = window.adsbygoogle || []; 
+
+  }, []);
 
   const dtime = moment().tz("Africa/Lagos").format("HH:mm");
   const dtimeAgo = moment()
@@ -86,8 +92,23 @@ export default function Home() {
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full  flex items-center justify-center bold my-12 text-3xl">
               {/* google ads */}
+              <ins
+                className="adsbygoogle"
+                style={{ display: "block" }}
+                data-ad-client="ca-pub-8640143531086883"
+                data-ad-slot="8326626700"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+              ></ins>
             </div>
           </div>
+          <Adsense
+            client="ca-pub-7640562161899788"
+            slot="7259870550"
+            style={{ display: "block" }}
+            layout="in-article"
+            format="fluid"
+          />
           <div className="w-full md:w-3/5 px-2">
             <div className="w-full flex-wrap">
               <div className="mt-6 mb-6 font-bold text-3xl flex items-center space-x-6 ">
@@ -175,35 +196,28 @@ export default function Home() {
                   </span>
                 </Link>
               </div>
-              {/* <Ad
-                client="ca-pub-8640143531086883"
+
+              <Adsense
+                client="ca-pub-7640562161899788"
                 slot="5881219350"
-                style={{
-                  display:'block',
-                  backgroundColor: "red",
-                }}
-                layout='in-article' 
-                format='fluid'
-                responsive='true'
-                layoutKey="-fb+5w+4e-db+86"
-              /> */}
-{/* 
-              <AdSense.Google
-                client="ca-pub-8640143531086883"
-                slot="9331162165"
-                style={{
-                  display: "block", 
-                }}
+                style={{ display: "block" }}
                 layout="in-article"
-                format="auto"
-                responsive="true"
-              /> */}
+                format="fluid"
+              />
             </div>
           </div>
 
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full  flex items-center justify-center bold my-12 text-3xl">
               {/* google ads */}
+              <ins
+                className="adsbygoogle"
+                style={{ display: "block" }}
+                data-ad-client="ca-pub-8640143531086883"
+                data-ad-slot="8326626700"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+              ></ins>
             </div>
           </div>
         </div>

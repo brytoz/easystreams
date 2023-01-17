@@ -8,7 +8,7 @@ import Loader from "../component/Loader";
 import Navbar from "../component/Navbar";
 import { BiFootball } from "react-icons/bi";
 import { FaTelegram } from "react-icons/fa";
-import {motion} from 'framer-motion'
+import { motion } from "framer-motion";
 
 function Preview() {
   axios.defaults.withCredentials = true;
@@ -47,9 +47,8 @@ function Preview() {
   };
 
   useLayoutEffect(() => {
-    window.scrollTo(0,0)
-    
-    })
+    window.scrollTo(0, 0);
+  });
   useEffect(() => {
     check();
   }, [id]);
@@ -65,24 +64,64 @@ function Preview() {
         <div className="w-full text-center   mt-6 font-bold text-3xl flex items-center justify-center space-x-6 ">
           <BiFootball className="yellow" size={32} />{" "}
           <h1>
+          {/* <div className="w-full  flex items-center justify-center  text-base">
+                <div className="w-2/4 flex items-center justify-center ">
+                  {" "}
+                  <img
+                    alt="team 1"
+                    className="h-10 w-10   mr-2 text-sm  "
+                    src={`https://server.easystreams.net/${data.data[0].home_img}`}
+                  />
+                  {data.data[0].home_team}{" "}
+                </div>{" "}
+                <div className="w-1/4">
+                  <span className="px-1 mx-2 py-.5 rounded bg-[#182538] text-[#f3e012]">
+                    vs
+                  </span>{" "}
+                </div>
+
+                <div className="w-2/4  flex items-center justify-center">
+                  {" "}
+                  {data.data[0].away_team}{" "}
+                  <img
+                    alt="team 2"
+                    className="h-10 w-10   ml-2  text-sm"
+                    src={`https://server.easystreams.net/${data.data[0].away_img}`}
+                  />
+                </div>
+              </div> */}
             {data ? (
-              <div className="flex items-center justify-center text-base">
-                <img
-                  alt="team 1"
-                  className="h-12 w-12 rounded-full pr-2 text-sm "
-                  src={`https://server.easystreams.net/${data.data[0].home_img}`}
-                />
-                {data.data[0].home_team} Vs {data.data[0].away_team} <img
-                  alt="team 2"
-                  className="h-12 w-12 rounded-full pl-2  text-sm"
-                  src={`https://server.easystreams.net/${data.data[0].away_img}`}
-                />
+              <div className="w-full  flex items-center justify-center  text-base">
+                <div className="w-2/4 flex items-center justify-center ">
+                  {" "}
+                  <img
+                    alt="team 1"
+                    className="text-xs h-10 w-10 rounded-full mr-2"
+                    src={`https://server.easystreams.net/${data.data[0].home_img}`}
+                  />
+                <span className="text-sm md:text-xl">  {data.data[0].home_team}{" "} </span>
+                </div>{" "}
+                <div className="w-1/4">
+                  <span className="px-1 mx-2 py-.5 rounded bg-[#182538] text-[#f3e012]">
+                    vs
+                  </span>{" "}
+                </div>
+
+                <div className="w-2/4  flex items-center justify-center">
+                  {" "}
+                <span className="text-sm md:text-xl"> {data.data[0].away_team}{" "}</span> 
+                  <img
+                    alt="team 2"
+                    className="h-10 w-10 rounded-full ml-2 text-xs"
+                    src={`https://server.easystreams.net/${data.data[0].away_img}`}
+                  />
+                </div>
               </div>
             ) : null}{" "}
           </h1>{" "}
           <BiFootball className="yellow" size={32} />
         </div>
-        
+
         <div className="w-full flex-wrap  h-48 mb-4 bg-yellow-500 flex items-center justify-center bold my-12 text-3xl text-[#182538] overflow-x-hidden">
           <motion.div
             initial={{ x: -100, opacity: 0, scale: 0 }}
@@ -142,14 +181,14 @@ function Preview() {
               ) : null}
 
               <table className="w-full text-xs md:text-base">
-                <thead >
+                <thead>
                   <tr className="border-b border-yellow-700 text-xl">
                     <th className="text-center p-1 py-3 pb-2">Match</th>
                     <th className="text-center p-1 py-3 pb-2">Details</th>
                   </tr>
                 </thead>
 
-                <tbody  className=" border border-yellow-400">
+                <tbody className=" border border-yellow-400">
                   <tr className=" border border-yellow-400">
                     <td className="text-center p-1 py-3">Home Team</td>
                     <td className="text-center p-1 py-3 capitalize">
@@ -166,7 +205,10 @@ function Preview() {
                     <td className="text-center p-1 py-3">Kick-Off</td>
                     <td className="text-center p-1 py-3">
                       {data
-                        ? data.data[0].match_day +' |'+ '| '+ data.data[0].match_time
+                        ? data.data[0].match_day +
+                          " |" +
+                          "| " +
+                          data.data[0].match_time
                         : null}
                     </td>
                   </tr>
@@ -197,7 +239,7 @@ function Preview() {
                           data
                             ? data.data[0].link_one.length > 2
                               ? () =>
-                                  window.location.assign(data.data[0].link_one)
+                                  window.open(data.data[0].link_one)
                               : null
                             : null
                         }
@@ -216,7 +258,7 @@ function Preview() {
                           data
                             ? data.data[0].link_two.length > 2
                               ? () =>
-                                  window.location.assign(data.data[0].link_two)
+                                  window.open(data.data[0].link_two)
                               : null
                             : null
                         }
@@ -235,7 +277,9 @@ function Preview() {
                           data
                             ? data.data[0].link_three.length > 2
                               ? () =>
-                                  window.location.assign(data.data[0].link_three)
+                                  window.open(
+                                    data.data[0].link_three
+                                  )
                               : null
                             : null
                         }
@@ -254,7 +298,7 @@ function Preview() {
                           data
                             ? data.data[0].link_four.length > 2
                               ? () =>
-                                  window.location.assign(data.data[0].link_four)
+                                  window.open(data.data[0].link_four)
                               : null
                             : null
                         }
