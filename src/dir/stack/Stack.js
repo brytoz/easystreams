@@ -13,7 +13,7 @@ import Disclaimer from '../pages/Disclaimer'
 import Matches from '../pages/Matches'
 import Preview from '../pages/Preview'
 import Index from '../pages/Index'
-import { Hom } from '../component/Hom'
+import { Maintenance } from '../component/Maintenance'
 import Home from '../pages/Home'
 
 const Stack = () => {
@@ -23,7 +23,7 @@ const Stack = () => {
         <Routes>
           {/* <Route index element={<Index />} /> */}
           <Route index element={<Home />} />
-          {/* <Route index element={<Hom />} /> */}
+          {/* <Route index element={<Maintenance />} /> */}
           <Route path="/policy" element={<Policy />} />
           <Route path="/about-us" element={<About />} />
           <Route path="/contact-us" element={<Contact />} />

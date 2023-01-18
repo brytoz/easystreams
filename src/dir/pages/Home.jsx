@@ -15,21 +15,40 @@ import { motion } from "framer-motion";
 import { PulseNotification } from "../component/PulseNotification";
 import moment from "moment-timezone";
 import { Adsense } from "@ctrl/react-adsense";
+import GoogleAds from "../component/GoogleAds";
 // import AdSense from "react-adsense";
 
-export default function Home(props) {
+export default function Home() {
   axios.defaults.withCredentials = true;
-  const { currentPath } = props;
 
   const { data, isLoading } = useQuery(
     ["match-details"],
     async () => await axios.get(`${process.env.REACT_APP_ADMIN}/post-new`)
   );
-  useEffect(() => {
-    
-    window.adsbygoogle = window.adsbygoogle || []; 
+  // useEffect(() => {
+  //   const pushAd = () => {
+  //     try {
+  //       const adsbygoogle = window.adsbygoogle
+  //       console.log({ adsbygoogle })
+  //       adsbygoogle.push({})
+  //     } catch (e) {
+  //       console.error(e)
+  //     }
+  //   }
 
-  }, []);
+  //   let interval = setInterval(() => {
+  //     // Check if Adsense script is loaded every 300ms
+  //     if (window.adsbygoogle) {
+  //       pushAd()
+  //       // clear the interval once the ad is pushed so that function isn't called indefinitely
+  //       clearInterval(interval)
+  //     }
+  //   }, 300)
+
+  //   return () => {
+  //     clearInterval(interval)
+  //   }
+  // }, [])
 
   const dtime = moment().tz("Africa/Lagos").format("HH:mm");
   const dtimeAgo = moment()
@@ -92,23 +111,14 @@ export default function Home(props) {
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full  flex items-center justify-center bold my-12 text-3xl">
               {/* google ads */}
-              <ins
-                className="adsbygoogle"
-                style={{ display: "block" }}
-                data-ad-client="ca-pub-8640143531086883"
-                data-ad-slot="8326626700"
-                data-ad-format="auto"
-                data-full-width-responsive="true"
-              ></ins>
+
+              <GoogleAds
+                glass="w-full h-full md:h-60 pr-2 hidden md:inline-block"
+                slot="8326626700"
+              />
             </div>
           </div>
-          <Adsense
-            client="ca-pub-7640562161899788"
-            slot="7259870550"
-            style={{ display: "block" }}
-            layout="in-article"
-            format="fluid"
-          />
+
           <div className="w-full md:w-3/5 px-2">
             <div className="w-full flex-wrap">
               <div className="mt-6 mb-6 font-bold text-3xl flex items-center space-x-6 ">
@@ -189,6 +199,13 @@ export default function Home(props) {
                     );
                   })
                 : null}
+
+              <div className="w-full flex justify-center pt-8">
+                <GoogleAds
+                  glass="w-1/2 flex justify-center h-full md:h-60 inline-block "
+                  slot="9331162165"
+                />
+              </div>
               <div className="w-full flex justify-center pt-8">
                 <Link to="/live-streaming">
                   <span className="bg-yellow-400 cursor-pointer rounded-lg px-3 py-2">
@@ -196,28 +213,16 @@ export default function Home(props) {
                   </span>
                 </Link>
               </div>
-
-              <Adsense
-                client="ca-pub-7640562161899788"
-                slot="5881219350"
-                style={{ display: "block" }}
-                layout="in-article"
-                format="fluid"
-              />
             </div>
           </div>
 
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full  flex items-center justify-center bold my-12 text-3xl">
               {/* google ads */}
-              <ins
-                className="adsbygoogle"
-                style={{ display: "block" }}
-                data-ad-client="ca-pub-8640143531086883"
-                data-ad-slot="8326626700"
-                data-ad-format="auto"
-                data-full-width-responsive="true"
-              ></ins>
+              <GoogleAds
+                glass="w-full h-full md:h-60 pr-2 hidden md:inline-block"
+                slot="8326626700"
+              />
             </div>
           </div>
         </div>

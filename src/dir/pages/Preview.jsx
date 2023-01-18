@@ -9,6 +9,7 @@ import Navbar from "../component/Navbar";
 import { BiFootball } from "react-icons/bi";
 import { FaTelegram } from "react-icons/fa";
 import { motion } from "framer-motion";
+// import GoogleAds from "../component/GoogleAds";
 
 function Preview() {
   axios.defaults.withCredentials = true;
@@ -64,32 +65,7 @@ function Preview() {
         <div className="w-full text-center   mt-6 font-bold text-3xl flex items-center justify-center space-x-6 ">
           <BiFootball className="yellow" size={32} />{" "}
           <h1>
-          {/* <div className="w-full  flex items-center justify-center  text-base">
-                <div className="w-2/4 flex items-center justify-center ">
-                  {" "}
-                  <img
-                    alt="team 1"
-                    className="h-10 w-10   mr-2 text-sm  "
-                    src={`https://server.easystreams.net/${data.data[0].home_img}`}
-                  />
-                  {data.data[0].home_team}{" "}
-                </div>{" "}
-                <div className="w-1/4">
-                  <span className="px-1 mx-2 py-.5 rounded bg-[#182538] text-[#f3e012]">
-                    vs
-                  </span>{" "}
-                </div>
-
-                <div className="w-2/4  flex items-center justify-center">
-                  {" "}
-                  {data.data[0].away_team}{" "}
-                  <img
-                    alt="team 2"
-                    className="h-10 w-10   ml-2  text-sm"
-                    src={`https://server.easystreams.net/${data.data[0].away_img}`}
-                  />
-                </div>
-              </div> */}
+        
             {data ? (
               <div className="w-full  flex items-center justify-center  text-base">
                 <div className="w-2/4 flex items-center justify-center ">
@@ -169,6 +145,7 @@ function Preview() {
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full bg-yellow-400 flex items-center justify-center bold my-12 text-3xl">
               {/* google ads */}
+             
             </div>
           </div>
           <div className="w-full md:w-3/5 px-2">
@@ -330,6 +307,7 @@ function Preview() {
                 </tbody>
               </table>
             </div>
+              
             <div className="w-full p-5   flex items-center justify-center text-base font-bold">
               {data && data.data[0].title}
             </div>
@@ -338,6 +316,7 @@ function Preview() {
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full bg-yellow-400 flex items-center justify-center bold my-12 text-3xl">
               {/* google ads */}
+               
             </div>
           </div>
         </div>

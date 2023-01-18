@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as image from "./Img";
 
 
-export const Hom = () => {
+export const Maintenance = () => {
   const [soon, setSoon] = useState(false);
 
   return (
