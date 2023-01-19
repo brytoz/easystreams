@@ -160,10 +160,10 @@ function Matches() {
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full  flex items-center justify-center bold my-12 text-3xl">
               {/* google ads */}
-              <GoogleAds
-                glass="w-full h-full md:h-60 pr-2 hidden md:inline-block"
+              {/* <GoogleAds
+                glass="w-full h-full   pr-2 hidden md:inline-block"
                 slot="8326626700"
-              />
+              /> */}
             </div>
           </div>
           <div className="w-full md:w-3/5 px-2">
@@ -310,10 +310,10 @@ function Matches() {
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full  flex items-center justify-center bold my-12 text-3xl">
               {/* google ads */}
-              <GoogleAds
-                glass="w-full h-full md:h-60 pr-2 hidden md:inline-block"
+              {/* <GoogleAds
+                glass="w-full h-full   pr-2 hidden md:inline-block"
                 slot="8326626700"
-              />
+              /> */}
             </div>
           </div>
         </div>

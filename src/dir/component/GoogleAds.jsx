@@ -9,7 +9,6 @@ class GoogleAds extends Component {
     render() {
         return (
                 <ins className={`adsbygoogle ${this.props.glass} `}
-                // style={{ display: "inline-block", width: "300px", height: "250px" }}
                     data-ad-client="ca-pub-8640143531086883"
                     data-ad-slot={this.props.slot}
                     data-ad-format= 'auto'

@@ -16,7 +16,6 @@ import { PulseNotification } from "../component/PulseNotification";
 import moment from "moment-timezone";
 import { Adsense } from "@ctrl/react-adsense";
 import GoogleAds from "../component/GoogleAds";
-// import AdSense from "react-adsense";
 
 export default function Home() {
   axios.defaults.withCredentials = true;
@@ -25,30 +24,7 @@ export default function Home() {
     ["match-details"],
     async () => await axios.get(`${process.env.REACT_APP_ADMIN}/post-new`)
   );
-  // useEffect(() => {
-  //   const pushAd = () => {
-  //     try {
-  //       const adsbygoogle = window.adsbygoogle
-  //       console.log({ adsbygoogle })
-  //       adsbygoogle.push({})
-  //     } catch (e) {
-  //       console.error(e)
-  //     }
-  //   }
 
-  //   let interval = setInterval(() => {
-  //     // Check if Adsense script is loaded every 300ms
-  //     if (window.adsbygoogle) {
-  //       pushAd()
-  //       // clear the interval once the ad is pushed so that function isn't called indefinitely
-  //       clearInterval(interval)
-  //     }
-  //   }, 300)
-
-  //   return () => {
-  //     clearInterval(interval)
-  //   }
-  // }, [])
 
   const dtime = moment().tz("Africa/Lagos").format("HH:mm");
   const dtimeAgo = moment()
@@ -111,11 +87,11 @@ export default function Home() {
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full  flex items-center justify-center bold my-12 text-3xl">
               {/* google ads */}
-
+{/* 
               <GoogleAds
                 glass="w-full h-full md:h-60 pr-2 hidden md:inline-block"
                 slot="8326626700"
-              />
+              /> */}
             </div>
           </div>
 
@@ -201,10 +177,10 @@ export default function Home() {
                 : null}
 
               <div className="w-full flex justify-center pt-8">
-                <GoogleAds
+                {/* <GoogleAds
                   glass="w-1/2 flex justify-center h-full md:h-60 inline-block "
                   slot="9331162165"
-                />
+                />  */}
               </div>
               <div className="w-full flex justify-center pt-8">
                 <Link to="/live-streaming">
@@ -219,10 +195,10 @@ export default function Home() {
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full  flex items-center justify-center bold my-12 text-3xl">
               {/* google ads */}
-              <GoogleAds
-                glass="w-full h-full md:h-60 pr-2 hidden md:inline-block"
+              {/* <GoogleAds
+                glass="w-full h-full  pr-2 hidden md:inline-block"
                 slot="8326626700"
-              />
+              /> */}
             </div>
           </div>
         </div>

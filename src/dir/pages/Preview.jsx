@@ -9,7 +9,7 @@ import Navbar from "../component/Navbar";
 import { BiFootball } from "react-icons/bi";
 import { FaTelegram } from "react-icons/fa";
 import { motion } from "framer-motion";
-// import GoogleAds from "../component/GoogleAds";
+import GoogleAds from "../component/GoogleAds";
 
 function Preview() {
   axios.defaults.withCredentials = true;
@@ -23,37 +23,14 @@ function Preview() {
   const [links, setLink] = useState(false);
 
   if (isError) {
-    navigate("/noaccess");
+    navigate("/not-available");
   }
-  const check = () => {
-    let objectDate = new Date();
-    let day = objectDate.getDate();
-    let month = objectDate.getMonth() + 1;
-    let year = objectDate.getFullYear();
-    let fulldate = year + "-" + month + "-" + day;
-
-    let hours = objectDate.getHours();
-    let minutes = objectDate.getMinutes();
-    let time = hours + ":" + minutes;
-
-    if (data) {
-      if (fulldate === data.data[0].match_day) {
-        if (time < data.data[0].match_time) {
-          setLink(true);
-        }
-      } else {
-        return;
-      }
-    }
-  };
+   
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   });
-  useEffect(() => {
-    check();
-  }, [id]);
-
+   
   if (isLoading) {
     return <Loader />;
   }
@@ -317,6 +294,10 @@ function Preview() {
             <div className="w-full h-full bg-yellow-400 flex items-center justify-center bold my-12 text-3xl">
               {/* google ads */}
                
+              {/* <GoogleAds
+                glass="w-full h-full md:h-60 pr-2 hidden md:inline-block"
+                slot="8326626700"
+              /> */}
             </div>
           </div>
         </div>

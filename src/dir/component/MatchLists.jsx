@@ -18,7 +18,7 @@ function MatchLists({
 }) {
   return (
     <div className="w-full">
-      <Link to={`/match-details/${link}/${linkId}`}>
+      <a href={`${process.env.REACT_APP_LINK}match-details/${link}/${linkId}`}>
         <div className="bg-[#f3e012] cursor-pointer rounded-xl h-auto flex justify-center items-center w-full mt-2 text-black focus:outline-none focus:shadow-outline shadow-md shadow-green-900/50 py-4 transition duration-500 ease-in-out  transform hover:-translate-y-1 hover:scale-10 ">
           <div className=" w-full px-5">
             <div className="text-gray-900/75 text-normal regular flex justify-between">
@@ -53,7 +53,7 @@ function MatchLists({
             </div>
           </div>
         </div>
-      </Link>
+      </a>
     </div>
   );
 }
