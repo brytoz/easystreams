@@ -11,60 +11,100 @@ import Navbar from "../component/Navbar";
 import { PulseNotification } from "../component/PulseNotification";
 import moment from "moment-timezone";
 import GoogleAds from "../component/GoogleAds";
+import { useQueries, useQuery } from "react-query";
+import Loader from "../component/Loader";
 
-
-
-let first = null;
-let second = null;
-let third = null;
 function Matches() {
   axios.defaults.withCredentials = true;
 
-  const [newM, setNew] = useState(false);
-  const [old, setOld] = useState(true);
-
-  const fetchData = async () => {
-    const dataOneAPI = `${process.env.REACT_APP_ADMIN}/post-old`;
-    const dataTwoAPI = `${process.env.REACT_APP_ADMIN}/post-new-update`;
-    const dataThreeAPI = `${process.env.REACT_APP_ADMIN}/post-upcoming`;
-
-    const getDataOne = await axios.get(dataOneAPI);
-    const getDataTwo = await axios.get(dataTwoAPI);
-    const getDataThree = await axios.get(dataThreeAPI);
-    axios.all([getDataOne, getDataTwo, getDataThree]).then(
-      axios.spread((...allData) => {
-        const firstAPI = allData[0].data;
-        const secondAPI = allData[1].data;
-        const thirdAPI = allData[2].data;
-        if (firstAPI) {
-          first = [];
-          firstAPI.map((data) => first.push(data));
-        }
-
-        if (secondAPI) {
-          second = [];
-          secondAPI.map((data) => second.push(data));
-        }
-        if (thirdAPI) {
-          third = [];
-          thirdAPI.map((data) => third.push(data));
-        }
-      })
-    );
-  };
- 
-  const dtime = moment().tz('Africa/Lagos').format('HH:mm') 
-  const dtimeAgo = moment().tz('Africa/Lagos').subtract(2, 'hours').format('HH:mm') 
-  const dDate = moment().tz('Africa/Lagos').format('YYYY-MM-DD') 
-  
- 
+  const [newM, setNew] = useState(true);
+  const [old, setOld] = useState(false);
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   });
-  useEffect(() => {
-    fetchData();
-  }, []);
+
+  const dataOneAPI = `${process.env.REACT_APP_ADMIN}/post-old`;
+  const dataTwoAPI = `${process.env.REACT_APP_ADMIN}/post-new-update`;
+  const dataThreeAPI = `${process.env.REACT_APP_ADMIN}/post-upcoming`;
+
+  const {
+    isLoading: loadingPost,
+    error: errorPost,
+    data: postData,
+  } = useQuery(["post-new-update"], () =>
+    axios.get(dataTwoAPI).then((res) => res.data)
+  );
+
+  const {
+    isLoading: loadingOldPost,
+    error: errorOldPost,
+    data: postOldData,
+  } = useQuery(["old-post"], () =>
+    axios.get(dataOneAPI).then((res) => res.data)
+  );
+
+  const {
+    isLoading: loadingUpcomingPost,
+    error: errorUpcomingPost,
+    data: postUpcomingData,
+  } = useQuery(["upcoming-post"], () =>
+    axios.get(dataThreeAPI).then((res) => res.data)
+  );
+
+  if (loadingUpcomingPost) return <Loader />;
+  if (loadingOldPost) return <Loader />;
+  if (loadingPost) return <Loader />;
+  if (postData) {
+    console.log(postData);
+  }
+  if (postOldData) {
+    console.log(postOldData);
+  }
+  if (postUpcomingData) {
+    console.log(postUpcomingData);
+  }
+
+  // const fetchData = async () => {
+  //   const dataOneAPI = `${process.env.REACT_APP_ADMIN}/post-old`;
+  //   const dataTwoAPI = `${process.env.REACT_APP_ADMIN}/post-new-update`;
+  //   const dataThreeAPI = `${process.env.REACT_APP_ADMIN}/post-upcoming`;
+
+  //   const getDataOne = await axios.get(dataOneAPI);
+  //   const getDataTwo = await axios.get(dataTwoAPI);
+  //   const getDataThree = await axios.get(dataThreeAPI);
+  //   axios.all([getDataOne, getDataTwo, getDataThree]).then(
+  //     axios.spread((...allData) => {
+  //       const firstAPI = allData[0].data;
+  //       const secondAPI = allData[1].data;
+  //       const thirdAPI = allData[2].data;
+  //       if (firstAPI) {
+  //         first = [];
+  //         firstAPI.map((data) => first.push(data));
+  //       }
+
+  //       if (secondAPI) {
+  //         second = [];
+  //         secondAPI.map((data) => second.push(data));
+  //       }
+  //       if (thirdAPI) {
+  //         third = [];
+  //         thirdAPI.map((data) => third.push(data));
+  //       }
+  //     })
+  //   );
+  // };
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
+  const dtime = moment().tz("Africa/Lagos").format("HH:mm");
+  const dtimeAgo = moment()
+    .tz("Africa/Lagos")
+    .subtract(2, "hours")
+    .format("HH:mm");
+  const dDate = moment().tz("Africa/Lagos").format("YYYY-MM-DD");
 
   const showOldMatch = () => {
     setNew(false);
@@ -161,12 +201,12 @@ function Matches() {
             <div className="w-full h-full  flex items-center justify-center bold my-12 text-3xl">
               {/* google ads */}
               {/* <GoogleAds
-                glass="w-full h-full   pr-2 hidden md:inline-block"
+                glass="w-full h-full md:h-60 pr-2 hidden md:inline-block"
                 slot="8326626700"
               /> */}
             </div>
           </div>
-          <div className="w-full md:w-3/5 px-2">
+          {/* <div className="w-full md:w-3/5 px-2">
             {newM
               ? second
                 ? second.map((data) => {
@@ -181,19 +221,43 @@ function Matches() {
                         linkId={data.ref}
                         link={data.id}
                         time={
-                          data ? dDate === data.match_day ? (
-                            data.match_time <= dtime ? (data.match_time >= dtimeAgo ? <PulseNotification /> : dtimeAgo > data.match_time ? '' : data.match_time) : data.match_time) : data.match_time
-                          : null
-                        } 
-                        day={
-                          data ? dDate === data.match_day ? (
-                          data.match_time <= dtime ? (data.match_time >= dtimeAgo ? '' : dtimeAgo > data.match_time ? 
-                          <div className="text-xl">
-                            Finished
-                          </div> : data.match_day) : data.match_day) : data.match_day
-                        : null
+                          data ? (
+                            dDate === data.match_day ? (
+                              data.match_time <= dtime ? (
+                                data.match_time >= dtimeAgo ? (
+                                  <PulseNotification />
+                                ) : dtimeAgo > data.match_time ? (
+                                  ""
+                                ) : (
+                                  data.match_time
+                                )
+                              ) : (
+                                data.match_time
+                              )
+                            ) : (
+                              data.match_time
+                            )
+                          ) : null
                         }
-                        
+                        day={
+                          data ? (
+                            dDate === data.match_day ? (
+                              data.match_time <= dtime ? (
+                                data.match_time >= dtimeAgo ? (
+                                  ""
+                                ) : dtimeAgo > data.match_time ? (
+                                  <div className="text-xl">Finished</div>
+                                ) : (
+                                  data.match_day
+                                )
+                              ) : (
+                                data.match_day
+                              )
+                            ) : (
+                              data.match_day
+                            )
+                          ) : null
+                        }
                         country={data.league}
                         sport_icon={
                           data.sport_type === "Football" ? (
@@ -265,9 +329,10 @@ function Matches() {
                   Upcoming Matches
                 </h3>
               </button>
-
             </div>
-            <div className="w-full mt-2 pt-2">{third  ? third.map((data) => (
+            <div className="w-full mt-2 pt-2">
+              {third
+                ? third.map((data) => (
                     <MatchLists
                       key={data.id}
                       away={data.away_team}
@@ -303,15 +368,188 @@ function Matches() {
                       }
                     />
                   ))
-                : null}</div>
+                : null}
+            </div>
+          </div> */}
 
+          <div className="w-full md:w-3/5 px-2">
+            {newM
+              ? postData
+                ? postData.map((data) => {
+                    return (
+                      <MatchLists
+                        key={data.id}
+                        away={data.away_team}
+                        home={data.home_team}
+                        // sportType={data.sport_type}
+                        img1={`https://server.easystreams.net/${data.home_img}`}
+                        img2={`https://server.easystreams.net/${data.away_img}`}
+                        linkId={data.ref}
+                        link={data.id}
+                        time={
+                          data ? (
+                            dDate === data.match_day ? (
+                              data.match_time <= dtime ? (
+                                data.match_time >= dtimeAgo ? (
+                                  <PulseNotification />
+                                ) : dtimeAgo > data.match_time ? (
+                                  ""
+                                ) : (
+                                  data.match_time
+                                )
+                              ) : (
+                                data.match_time
+                              )
+                            ) : (
+                              data.match_time
+                            )
+                          ) : null
+                        }
+                        day={
+                          data ? (
+                            dDate === data.match_day ? (
+                              data.match_time <= dtime ? (
+                                data.match_time >= dtimeAgo ? (
+                                  ""
+                                ) : dtimeAgo > data.match_time ? (
+                                  <div className="text-xl">Finished</div>
+                                ) : (
+                                  data.match_day
+                                )
+                              ) : (
+                                data.match_day
+                              )
+                            ) : (
+                              data.match_day
+                            )
+                          ) : null
+                        }
+                        country={data.league}
+                        sport_icon={
+                          data.sport_type === "Football" ? (
+                            <div className="flex items-center space-x-2">
+                              <BiFootball className="white" size={32} />{" "}
+                              <span> Football </span>{" "}
+                            </div>
+                          ) : data.sport_type === "Tennis" ? (
+                            <div className="flex items-center space-x-2">
+                              <GiTennisRacket className="green" size={32} />{" "}
+                              <span> Tennis </span>{" "}
+                            </div>
+                          ) : data.sport_type === "Basketball" ? (
+                            <div className="flex items-center space-x-2">
+                              <FaBasketballBall className="brown" size={32} />
+                              <span>Basketball </span>{" "}
+                            </div>
+                          ) : (
+                            "Sport"
+                          )
+                        }
+                      />
+                    );
+                  })
+                : null
+              : null}
+            {errorPost && "Reload this page or check your network connection"}
+
+            {old
+              ? postOldData
+                ? postOldData.slice(0, 20).map((data) => (
+                    <MatchLists
+                      key={data.id}
+                      away={data.away_team}
+                      home={data.home_team}
+                      // sportType={data.sport_type}
+                      // time={data.match_time}
+                      img1={`https://server.easystreams.net/${data.home_img}`}
+                      img2={`https://server.easystreams.net/${data.away_img}`}
+                      linkId={data.ref}
+                      link={data.id}
+                      day={data.scores}
+                      country={data.league}
+                      sport_icon={
+                        data.sport_type === "Football" ? (
+                          <div className="flex items-center space-x-2">
+                            <BiFootball className="white" size={32} />{" "}
+                            <span> Football </span>{" "}
+                          </div>
+                        ) : data.sport_type === "Tennis" ? (
+                          <div className="flex items-center space-x-2">
+                            <GiTennisRacket className="green" size={32} />{" "}
+                            <span> Tennis </span>{" "}
+                          </div>
+                        ) : data.sport_type === "Basketball" ? (
+                          <div className="flex items-center space-x-2">
+                            <FaBasketballBall className="brown" size={32} />
+                            <span>Basketball </span>{" "}
+                          </div>
+                        ) : (
+                          "Sport"
+                        )
+                      }
+                    />
+                  ))
+                : null
+              : null}
+            {errorOldPost &&
+              "Reload this page or check your network connection"}
+
+            <div className="darkMode text-base w-full border leading-loose  flex justify-center items-center mt-5">
+              <button className="bg-[#182538] cursor-auto text-white capitalize flex-1 text-xs  h-full   md:text-sm">
+                <h3 className="py-3 w-full text-xl font-bold">
+                  Upcoming Matches
+                </h3>
+              </button>
+            </div>
+            <div className="w-full mt-2 pt-2">
+              {postUpcomingData
+                ? postUpcomingData.map((data) => (
+                    <MatchLists
+                      key={data.id}
+                      away={data.away_team}
+                      home={data.home_team}
+                      // sportType={data.sport_type}
+                      // time={data.match_time}
+                      img1={`https://server.easystreams.net/${data.home_img}`}
+                      img2={`https://server.easystreams.net/${data.away_img}`}
+                      linkId={data.ref}
+                      link={data.id}
+                      day={data.match_day}
+                      time={data.match_time}
+                      country={data.league}
+                      sport_icon={
+                        data.sport_type === "Football" ? (
+                          <div className="flex items-center space-x-2">
+                            <BiFootball className="white" size={32} />{" "}
+                            <span> Football </span>{" "}
+                          </div>
+                        ) : data.sport_type === "Tennis" ? (
+                          <div className="flex items-center space-x-2">
+                            <GiTennisRacket className="green" size={32} />{" "}
+                            <span> Tennis </span>{" "}
+                          </div>
+                        ) : data.sport_type === "Basketball" ? (
+                          <div className="flex items-center space-x-2">
+                            <FaBasketballBall className="brown" size={32} />
+                            <span>Basketball </span>{" "}
+                          </div>
+                        ) : (
+                          "Sport"
+                        )
+                      }
+                    />
+                  ))
+                : null}
+              {errorUpcomingPost &&
+                "Reload this page or check your network connection"}
+            </div>
           </div>
 
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full  flex items-center justify-center bold my-12 text-3xl">
               {/* google ads */}
               {/* <GoogleAds
-                glass="w-full h-full   pr-2 hidden md:inline-block"
+                glass="w-full h-full md:h-60 pr-2 hidden md:inline-block"
                 slot="8326626700"
               /> */}
             </div>
