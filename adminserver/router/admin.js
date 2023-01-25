@@ -1080,7 +1080,7 @@ administrator.get('/post', (req, res) =>
 
 administrator.get('/post-new', async (req, res) => {
 
- const fulltime =  moment().tz('Africa/Lagos').subtract(2, 'hours').format('HH:mm');
+const fulltime =  moment().tz('Africa/Lagos').subtract(2, 'hours').format('HH:mm');
 const fulldate = moment().tz('Africa/Lagos').format('YYYY-MM-DD');
 
   let t = '01:59' ;
@@ -1177,6 +1177,176 @@ const fulldate = moment().tz('Africa/Lagos').format('YYYY-MM-DD');
     .catch((err) => res.status(400).send('Unable to fetch your requested data'))
 })
 
+// get all new basketball update posts
+administrator.get('/post-new-update-basketball', (req, res) => {
+  
+  const fulltime =  moment().tz('Africa/Lagos').subtract(3, 'hours').format('HH:mm');
+  const nowTime =  moment().tz('Africa/Lagos').format('HH:mm');
+  const fulldate = moment().tz('Africa/Lagos').format('YYYY-MM-DD');
+  
+    let t = '01:59';  
+    Post.findAll({
+      where: {
+    sport_type: 'basketball',
+    match_day: { [Sequelize.Op.eq]: fulldate },
+      match_time: {
+        [Sequelize.Op.or]: {
+           [Sequelize.Op.lte]: t,
+           [Sequelize.Op.gt]: fulltime, 
+         
+        },
+      },
+    
+      $and: Sequelize.where(
+        Sequelize.fn('char_length', Sequelize.col('scores')),
+        {
+          [Sequelize.Op.lte]: 1,
+        }, 
+      ),
+    },
+      order: [
+        ['match_day', 'ASC'],
+        ['priority', 'ASC'],
+        ['match_time', 'ASC'],
+      ],
+    })
+      .then((data) => {
+        res.status(200).send(data)
+      })
+      .catch((err) => res.status(400).send('Unable to fetch your requested data'))
+  })
+
+  // get all new football update posts
+administrator.get('/post-new-update-football', (req, res) => {
+  
+  const fulltime =  moment().tz('Africa/Lagos').subtract(3, 'hours').format('HH:mm');
+  const nowTime =  moment().tz('Africa/Lagos').format('HH:mm');
+  const fulldate = moment().tz('Africa/Lagos').format('YYYY-MM-DD');
+  
+    let t = '01:59';  
+    Post.findAll({
+      where: {
+    sport_type: 'football',
+    match_day: { [Sequelize.Op.eq]: fulldate },
+      match_time: {
+        [Sequelize.Op.or]: {
+           [Sequelize.Op.lte]: t,
+           [Sequelize.Op.gt]: fulltime, 
+         
+        },
+      },
+    
+      $and: Sequelize.where(
+        Sequelize.fn('char_length', Sequelize.col('scores')),
+        {
+          [Sequelize.Op.lte]: 1,
+        }, 
+      ),
+    },
+      order: [
+        ['match_day', 'ASC'],
+        ['priority', 'ASC'],
+        ['match_time', 'ASC'],
+      ],
+    })
+      .then((data) => {
+        res.status(200).send(data)
+      })
+      .catch((err) => res.status(400).send('Unable to fetch your requested data'))
+  })
+
+// get all old matches football
+administrator.get('/post-old-football', (req, res) => {
+  
+  Post.findAll({
+    where: {
+    sport_type: 'football',
+    $and: Sequelize.where(
+      Sequelize.fn('char_length', Sequelize.col('scores')),
+      {
+        [Sequelize.Op.gt]: 1,
+      }, 
+    ),
+  },
+    order: [
+      ['match_day', 'DESC'],
+      ['match_time', 'DESC'],
+    ],
+  })
+    .then((data) => {
+      res.status(200).send(data)
+    })
+    .catch((err) => res.status(400).send('Unable to fetch your requested data'))
+})
+
+// get all old matches basketball
+administrator.get('/post-old-basketball', (req, res) => {
+  
+  Post.findAll({
+    where: {
+    sport_type: 'basketball',
+    $and: Sequelize.where(
+      Sequelize.fn('char_length', Sequelize.col('scores')),
+      {
+        [Sequelize.Op.gt]: 1,
+      }, 
+    ),
+  },
+    order: [
+      ['match_day', 'DESC'],
+      ['match_time', 'DESC'],
+    ],
+  })
+    .then((data) => {
+      res.status(200).send(data)
+    })
+    .catch((err) => res.status(400).send('Unable to fetch your requested data'))
+})
+
+// get all upcoming basketball posts
+administrator.get('/post-upcoming-basketball', (req, res) => {
+ 
+  const fulldate = moment().tz('Africa/Lagos').format('YYYY-MM-DD');
+  
+    Post.findAll({
+      where: {
+    sport_type: 'basketball',
+    match_day: { [Sequelize.Op.gt]: fulldate },
+    },
+      order: [
+        ['match_day', 'ASC'],
+        ['match_time', 'ASC'],
+        ['priority', 'ASC'],
+      ],
+    })
+      .then((data) => {
+        res.status(200).send(data)
+      })
+      .catch((err) => res.status(400).send('Unable to fetch your requested data'))
+  })
+  
+
+  // get all upcoming football posts
+administrator.get('/post-upcoming-football', (req, res) => {
+ 
+  const fulldate = moment().tz('Africa/Lagos').format('YYYY-MM-DD');
+  
+    Post.findAll({
+      where: {
+    sport_type: 'football',
+    match_day: { [Sequelize.Op.gt]: fulldate },
+    },
+      order: [
+        ['match_day', 'ASC'],
+        ['match_time', 'ASC'],
+        ['priority', 'ASC'],
+      ],
+    })
+      .then((data) => {
+        res.status(200).send(data)
+      })
+      .catch((err) => res.status(400).send('Unable to fetch your requested data'))
+  })
 
 administrator.get('/post-old', async (req, res) => {
   await Post.findAll({
