@@ -102,9 +102,14 @@ export default function Footer() {
                       </li>
                     </Link>
 
-                    <Link to="/live-streaming">
+                    <Link to="/football-streaming">
                       <li className="mt-4 text-sm md:text-base text-white/75 hover:text-white/50">
-                        Streaming Links
+                        Football
+                      </li>
+                    </Link>
+                    <Link to="/basketball-streaming">
+                      <li className="mt-4 text-sm md:text-base text-white/75 hover:text-white/50">
+                        Basketball
                       </li>
                     </Link>
                   </ul>

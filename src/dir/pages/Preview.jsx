@@ -19,7 +19,7 @@ function Preview() {
   const { data, isError, isLoading } = useQuery(
     ["match-details"],
     async () => await axios.get(`${process.env.REACT_APP_ADMIN}/post/${id}`)
-  );
+  ); 
   const [links, setLink] = useState(false);
 
   if (isError) {

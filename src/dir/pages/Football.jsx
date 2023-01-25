@@ -13,8 +13,9 @@ import moment from "moment-timezone";
 import GoogleAds from "../component/GoogleAds";
 import { useQueries, useQuery } from "react-query";
 import Loader from "../component/Loader";
+import { Link } from "react-router-dom";
 
-function Matches() {
+function Football() {
   axios.defaults.withCredentials = true;
 
   const [newM, setNew] = useState(true);
@@ -24,15 +25,15 @@ function Matches() {
     window.scrollTo(0, 0);
   });
 
-  const dataOneAPI = `${process.env.REACT_APP_ADMIN}/post-old`;
-  const dataTwoAPI = `${process.env.REACT_APP_ADMIN}/post-new-update`;
-  const dataThreeAPI = `${process.env.REACT_APP_ADMIN}/post-upcoming`;
+  const dataOneAPI = `${process.env.REACT_APP_ADMIN}/post-old-football`;
+  const dataTwoAPI = `${process.env.REACT_APP_ADMIN}/post-new-update-football`;
+  const dataThreeAPI = `${process.env.REACT_APP_ADMIN}/post-upcoming-football`;
 
   const {
     isLoading: loadingPost,
     error: errorPost,
     data: postData,
-  } = useQuery(["post-new-update"], () =>
+  } = useQuery(["post-new-update-football"], () =>
     axios.get(dataTwoAPI).then((res) => res.data)
   );
 
@@ -40,7 +41,7 @@ function Matches() {
     isLoading: loadingOldPost,
     error: errorOldPost,
     data: postOldData,
-  } = useQuery(["old-post"], () =>
+  } = useQuery(["old-football-post"], () =>
     axios.get(dataOneAPI).then((res) => res.data)
   );
 
@@ -48,7 +49,7 @@ function Matches() {
     isLoading: loadingUpcomingPost,
     error: errorUpcomingPost,
     data: postUpcomingData,
-  } = useQuery(["upcoming-post"], () =>
+  } = useQuery(["upcoming-post-football"], () =>
     axios.get(dataThreeAPI).then((res) => res.data)
   );
 
@@ -85,26 +86,32 @@ function Matches() {
   return (
     <Fragment>
       <Navbar />
-      <div style={{zIndex:100}}
-       className="w-full mb-6 sticky top-0 z-99">
+      <div style={{ zIndex: 90 }} className="w-full mb-6 sticky top-0 z-99">
         <div className="darkMode text-base w-full   leading-loose  flex justify-center items-center">
-          <button
-            className={"bg-[#f3e012] text-black capitalize flex-1 text-xs md:text-sm"}
+          <div
+            className={
+              "bg-[#f3e012] text-black capitalize flex-1 text-xs md:text-sm"
+            }
           >
-            <h3 className="py-3 w-full flex justify-center items-center space-x-5">Football Matches <BiFootball className="black" size={24} /></h3>
-            
-          </button>
+            <Link to="/football-streaming">
+              <span className="py-3 w-full flex justify-center items-center space-x-5">
+                Football Matches <BiFootball className="black" size={24} />
+              </span>
+            </Link>
+          </div>
 
-          <button
-            className={`h-full flex-1 capitalize text-xs md:text-sm`}>
-            <h3 className="py-3 w-full flex justify-center items-center space-x-5">Basketball Matches <BiBasketball className="yellow" size={24} /></h3>
-
-          </button>
+          <div className={`h-full flex-1 capitalize text-xs md:text-sm`}>
+            <Link to="/basketball-streaming">
+              <span className="py-3 w-full flex justify-center items-center space-x-5">
+                Basketball Matches <BiBasketball className="yellow" size={24} />
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
       <div className="md:px-32 xl:px-64  mt-6 font-bold text-3xl flex items-center space-x-6 ">
         <BiFootball className="yellow" size={24} />{" "}
-        <h1>Football  Streaming Update</h1>{" "}
+        <h1>Football Streaming Update</h1>{" "}
         <BiFootball className="yellow" size={24} />
       </div>
       <div className="overflow-x-hidden w-full flex-wrap  h-48 mb-4 bg-yellow-500 flex items-center justify-center bold my-12 text-3xl text-[#182538]">
@@ -379,4 +386,4 @@ function Matches() {
   );
 }
 
-export default Matches;
+export default Football;

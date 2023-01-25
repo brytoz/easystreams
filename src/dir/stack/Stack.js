@@ -12,16 +12,16 @@ import DMCA from '../pages/DMCA'
 import Disclaimer from '../pages/Disclaimer'
 import Matches from '../pages/Matches'
 import Preview from '../pages/Preview'
-import Index from '../pages/Index'
 import { Maintenance } from '../component/Maintenance'
 import Home from '../pages/Home'
+import Basketball from '../pages/Basketball'
+import Football from '../pages/Football'
 
 const Stack = () => {
   return (
     <React.Fragment>
       <BrowserRouter>
         <Routes>
-          {/* <Route index element={<Index />} /> */}
           <Route index element={<Home />} />
           {/* <Route index element={<Maintenance />} /> */}
           <Route path="/policy" element={<Policy />} />
@@ -32,6 +32,8 @@ const Stack = () => {
           <Route path="/Disclaimer" element={<Disclaimer />} />
           <Route path="/match-details/:id/:link" element={<Preview />} />
           <Route path="/live-streaming" element={<Matches />} />
+          <Route path="/basketball-streaming" element={<Basketball />} />
+          <Route path="/Football-streaming" element={<Football />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>

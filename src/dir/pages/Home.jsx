@@ -183,7 +183,7 @@ export default function Home() {
                 />  */}
               </div>
               <div className="w-full flex justify-center pt-8">
-                <Link to="/live-streaming">
+                <Link to="/football-streaming">
                   <span className="bg-yellow-400 cursor-pointer rounded-lg px-3 py-2">
                     Load more
                   </span>
