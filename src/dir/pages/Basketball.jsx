@@ -56,15 +56,7 @@ function Basketball() {
   if (loadingUpcomingPost) return <Loader />;
   if (loadingOldPost) return <Loader />;
   if (loadingPost) return <Loader />;
-  if (postData) {
-    console.log(postData);
-  }
-  if (postOldData) {
-    console.log(postOldData);
-  }
-  if (postUpcomingData) {
-    console.log(postUpcomingData);
-  }
+ 
 
   const dtime = moment().tz("Africa/Lagos").format("HH:mm");
   const dtimeAgo = moment()
