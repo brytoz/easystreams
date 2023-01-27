@@ -102,7 +102,6 @@ function Post() {
         .then(async (result) => {
           if (result.status === 200) {
             setSuccess(true);
-            console.log(result)
             setStatus(result.data);
             setTimeout(() => {
               window.location.reload(true);
@@ -120,7 +119,6 @@ function Post() {
         });
     } catch (err) {
       setError(true);
-      console.log(err)
       setStatus(err.message);
     }
   };

@@ -50,7 +50,7 @@ function UpdateLink() {
           }, 5000);
         });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   } 
 

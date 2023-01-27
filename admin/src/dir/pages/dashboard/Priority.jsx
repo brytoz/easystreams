@@ -46,7 +46,7 @@ export const Priority = () => {
           }, 5000);
         });
     } catch (err) {
-      console.log(err);
+      setStatus(err.message);
     }
   };
 

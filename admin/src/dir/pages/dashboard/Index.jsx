@@ -35,7 +35,7 @@ export default function Index() {
             setInfo(result.data)
           });
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     }
     getUsers();
