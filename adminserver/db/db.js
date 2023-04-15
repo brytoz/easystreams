@@ -4,7 +4,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 // process.env.DATABASE, process.env.USER, 
-module.exports =  new Sequelize(process.env.DATABASE, process.env.USER, process.env.PASSWORD, {
+module.exports =  new Sequelize('easystreams', 'root', process.env.PASSWORD, {
   host: 'localhost',
   dialect:  'mysql',
   operatorsAliases: 0,
