@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;1,300&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+
+.yellow{
+  color: #f3e012;
+}
+
+.darkMode {
+  background-color: #182538;
+  color:white;
+}
+.black {
+  color: #182538;
+}
+#error {
+  background-image: url("./assets/404.png");
+  background-color: #111111;
+  /* height: 500px;   */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+ 
+.marquee-container {
+  width: 100%;
+  /* overflow: hidden; */
+  /* display: flex; */
+  position: relative;
+}
+
+.marquee-content {
+  display: inline-block;
+  white-space: nowrap;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: marquee 20s linear infinite;
+}
+
+.marquee-content:after, .marquee-content:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+}
+
+.marquee-content span {
+  display: inline-block;
+  padding-right: 20px;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* MEDIA QUERIES */
+/* @media(max-width: 800px){
+  
+}
+
+@media only screen and (min-width: 768px){
+
+}
+
+   @media only screen and (max-width: 1024px) {
+
+   }
+
+@media only screen and (max-width: 767px){
+
+
+}
+
+*/
