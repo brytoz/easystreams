@@ -35,17 +35,16 @@ export default function Home() {
     .format("HH:mm");
   const dDate = moment().tz("Africa/Lagos").format("YYYY-MM-DD");
 
-  if (isLoading) return <Loader />;
+  // if (isLoading) return <Loader />;
 
   return (
     <Fragment>
       <Navbar />
       <Hero />
-      <div className={`w-full  ${darkMode ? 'bg-[#182538]' :'bg-white' } sticky top-0 z-100`} style={{zIndex:100}}>
+
 <Marquee />
-      </div>
-      <div className="w-full flex-wrap relative ">
-        <div className="w-full flex-wrap  h-48 mb-4 bg-yellow-500 flex items-center justify-center bold my-  text-3xl text-[#182538] overflow-x-hidden">
+      <div className="w-full flex-wrap relative overflow-hidden ">
+        <div className="w-full flex-wrap  h-48 mb-4 bg-yellow-500 flex items-center justify-center bold my-  text-3xl text-[#182538] overflow-hidden">
           <motion.div
             initial={{ x: -100, opacity: 0, scale: 0 }}
             animate={{ scale: 1 }}
@@ -187,9 +186,9 @@ export default function Home() {
                   slot="9331162165"
                 />  */}
               </div>
-              <div className="w-full flex justify-center pt-8">
+              <div className="w-full flex justify-center pt-8 pb-3">
                 <Link to="/football-streaming">
-                  <span className="bg-yellow-400 cursor-pointer rounded-lg px-3 py-2">
+                  <span className="bg-yellow-400 text-black cursor-pointer rounded-lg px-3 py-2">
                     Load more
                   </span>
                 </Link>

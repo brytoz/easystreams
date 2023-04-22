@@ -30,7 +30,7 @@ export default function Footer() {
           </div>
         </div>
       ) : null}
-      <div className="w-full flex-wrap  h-48 mb-4 bg-yellow-500 flex items-center justify-center bold my-12 text-3xl text-[#182538]">
+      <div className="w-full flex-wrap  h-48 mb-4 bg-yellow-500 flex items-center justify-center bold my-12 text-3xl text-[#182538] overflow-hidden">
         <motion.div  initial={{ x: -100, opacity: 0, scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.3 }}

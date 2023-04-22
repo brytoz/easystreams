@@ -58,7 +58,7 @@ const Hero = () => {
               exit={{ x: -100, opacity: 0 }}
               whileTap={{ scale: 0.8 }}
               src={imgs.Land}
-              className="h-2/5 md:h-fit w-3/4  flex-justify-center mb-[-1rem] -mt-16 md:mt-0"
+              className="h-1/5 md:h-fit w-2/4 md:w-3/4 flex-justify-center mb-[-1rem] -mt-16 md:mt-0"
             />
           </motion.div>
         </div>

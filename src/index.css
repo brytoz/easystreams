@@ -30,7 +30,57 @@ body {
   background-size: cover;
 }
 
- 
+.bg-football {
+  background-image: url('./assets/football.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  background-repeat: no-repeat;
+}
+
+.bg-basketball {
+  background-image: url('./assets/basketball.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  background-repeat: no-repeat;
+}
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none; /* hide scrollbar on Firefox */
+  -ms-overflow-style: none; /* hide scrollbar on IE 10+ */
+} 
+
+.scroll-container::-webkit-scrollbar {
+  /* hide scrollbar on Chrome, Safari, and Opera */
+  display: none;
+}
+.child {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.parent {
+  display: flex;
+  overflow-x: auto;
+}
+
+.parent::-webkit-scrollbar {
+  display: none; /* hide scrollbar on Chrome, Safari, and Opera */
+}
+
+.bg-football::before, .bg-basketball::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 0.9;
+}
+
 .marquee-container {
   width: 100%;
   /* overflow: hidden; */

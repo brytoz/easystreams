@@ -15,7 +15,12 @@ import Italy from '../../assets/italy.png'
 import Liga from '../../assets/laliga.png'
 import Portugal from '../../assets/portugal.png'
 
+import Basketball from '../../assets/basketball.jpg'
+import Football from '../../assets/football.jpg'
 
+
+export const FOOTBALL = Football    
+export const BASKETBALL = Basketball    
 export const Land = landing    
 export const One = Logo1    
 export const Two = Logo2   
