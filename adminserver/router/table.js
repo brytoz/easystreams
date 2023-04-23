@@ -36,7 +36,7 @@ router.get('/england-table-v2', async (req, res) => {
     return tableEnglandV2
   })
   res.send(tableEnglandV2)
-  res.end()
+  
 })
 
 // Middleware function to handle the /england route
@@ -49,7 +49,7 @@ router.get('/england-table', async (req, res) => {
   const html = await response.data
   const $ = cheerio.load(html)
 
-  const allRows = $('table.Vd.Wd > tbody > tr')
+  const allRows = $('table.Wd.Xd > tbody > tr')
   const tableEngland = []
 
   allRows.each(async (index, element) => {
@@ -75,8 +75,10 @@ router.get('/england-table', async (req, res) => {
     
     return tableEngland
   })
-  res.send(tableEngland)
-  res.end()
+
+  
+  return res.send(tableEngland)
+  
 
 })
 
@@ -92,7 +94,7 @@ router.get('/italy-table', async (req, res) => {
   const $ = cheerio.load(html)
   //   const allRows = $('div.tableWrrouterer > div.ui-table > div.ui-table__body > div.ui-table__row')
 
-  const allRows = $('table.Vd.Wd > tbody > tr')
+  const allRows = $('table.Wd.Xd > tbody > tr')
   const tableItaliy = []
   allRows.each(async (index, element) => {
     const tds = $(element).find('td')
@@ -116,7 +118,7 @@ router.get('/italy-table', async (req, res) => {
     return tableItaliy
   })
   res.send(tableItaliy)
-  res.end()
+  
 })
 
 // Middleware function to handle the /spain route
@@ -129,7 +131,7 @@ router.get('/spain-table', async (req, res) => {
   const html = await response.data
   const $ = cheerio.load(html)
 
-  const allRows = $('table.Vd.Wd > tbody > tr')
+  const allRows = $('table.Wd.Xd > tbody > tr')
   const tableSpain = []
 
   allRows.each(async (index, element) => {
@@ -152,8 +154,8 @@ router.get('/spain-table', async (req, res) => {
 
     return tableSpain
   })
-  res.send(tableSpain)
-  res.end()
+  return res.send(tableSpain)
+  
 })
 
 // Middleware function to handle the /germany route
@@ -166,7 +168,7 @@ router.get('/germany-table', async (req, res) => {
   const html = await response.data
   const $ = cheerio.load(html)
 
-  const allRows = $('table.Vd.Wd > tbody > tr')
+  const allRows = $('table.Wd.Xd > tbody > tr')
   const tableGermany = []
 
   allRows.each(async (index, element) => {
@@ -190,7 +192,7 @@ router.get('/germany-table', async (req, res) => {
     return tableGermany
   })
   res.send(tableGermany)
-  res.end()
+  
 })
 
 // Middleware function to handle the /france route
@@ -203,7 +205,7 @@ router.get('/france-table', async (req, res) => {
   const html = await response.data
   const $ = cheerio.load(html)
 
-  const allRows = $('table.Vd.Wd > tbody > tr')
+  const allRows = $('table.Wd.Xd > tbody > tr')
   const tableFrance = []
 
   allRows.each(async (index, element) => {
@@ -227,7 +229,7 @@ router.get('/france-table', async (req, res) => {
     return tableFrance
   })
   res.send(tableFrance)
-  res.end()
+  
 })
 
 // Middleware function to handle the /holland route
@@ -240,7 +242,7 @@ router.get('/holland-table', async (req, res) => {
     const html = await response.data
     const $ = cheerio.load(html)
   
-    const allRows = $('table.Vd.Wd > tbody > tr')
+  const allRows = $('table.Wd.Xd > tbody > tr')
     const tableHolland = []
   
     allRows.each(async (index, element) => {
@@ -264,7 +266,7 @@ router.get('/holland-table', async (req, res) => {
       return tableHolland
     })
     res.send(tableHolland)
-    res.end()
+    
   })
   
   
@@ -278,7 +280,7 @@ router.get('/portugal-table', async (req, res) => {
     const html = await response.data
     const $ = cheerio.load(html)
   
-    const allRows = $('table.Vd.Wd > tbody > tr')
+  const allRows = $('table.Wd.Xd > tbody > tr')
     const tableHolland = []
   
     allRows.each(async (index, element) => {
@@ -302,7 +304,7 @@ router.get('/portugal-table', async (req, res) => {
       return tableHolland
     })
     res.send(tableHolland)
-    res.end()
+    
   })
     
 
