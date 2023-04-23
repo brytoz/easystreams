@@ -12,7 +12,7 @@ const England = () => {
   const navigate = useNavigate();
   const { data, isError, isLoading } = useQuery(
     ["england"],
-    async () => await axios.get(`${process.env.REACT_APP_TABLE}/england-table`)
+    async () => await axios.get(`${process.env.REACT_APP_TABLE}/england-table`) 
   );
 
   
