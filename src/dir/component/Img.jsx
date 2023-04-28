@@ -17,8 +17,10 @@ import Portugal from '../../assets/portugal.png'
 
 import Basketball from '../../assets/basketball.jpg'
 import Football from '../../assets/football.jpg'
+import Ads from '../../assets/adsimage.jpg'
 
 
+export const ADS = Ads    
 export const FOOTBALL = Football    
 export const BASKETBALL = Basketball    
 export const Land = landing    

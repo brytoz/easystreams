@@ -13,10 +13,11 @@ import { FaBasketballBall, FaTelegram } from "react-icons/fa";
 import { GiTennisRacket } from "react-icons/gi";
 import { motion } from "framer-motion";
 import { PulseNotification } from "../component/PulseNotification";
-import moment from "moment-timezone"; 
+import moment from "moment-timezone";
 import GoogleAds from "../component/GoogleAds";
 import Marquee from "../component/Marquee";
 import { DarkModeContext } from "../contexts/darkModeContext";
+import { TelegramAds } from "../component/TelegramAds";
 
 export default function Home() {
   axios.defaults.withCredentials = true;
@@ -26,7 +27,6 @@ export default function Home() {
     ["match-details"],
     async () => await axios.get(`${process.env.REACT_APP_ADMIN}/post-new`)
   );
-
 
   const dtime = moment().tz("Africa/Lagos").format("HH:mm");
   const dtimeAgo = moment()
@@ -42,56 +42,16 @@ export default function Home() {
       <Navbar />
       <Hero />
 
-<Marquee />
+      <Marquee />
       <div className="w-full flex-wrap relative overflow-hidden ">
-        <div className="w-full flex-wrap  h-48 mb-4 bg-yellow-500 flex items-center justify-center bold my-  text-3xl text-[#182538] overflow-hidden">
-          <motion.div
-            initial={{ x: -100, opacity: 0, scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.3 }}
-            whileInView={{ x: 1, opacity: 1 }}
-            whileHover={{ scale: 1.2, z: 10 }}
-            exit={{ x: -100, opacity: 0 }}
-            whileTap={{ scale: 0.8 }}
-            className="w-full md:w-1/2 flex flex-wrap items-center  justify-center text-xl md:text-3xl"
-          >
-            <a href="https://t.me/easystreamsport">
-              {" "}
-              <FaTelegram className="  mr-2" size={72} />
-            </a>{" "}
-            <div className="block">
-              {" "}
-              <a
-                href="https://t.me/+cTOn5enFWBQ2YjJk"
-                className="bg-[#182538] px-2 py-1 rounded yellow"
-              >
-                Telegram
-              </a>
-            </div>
-          </motion.div>
-          <motion.div
-            initial={{ x: 100, opacity: 0, scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.3 }}
-            whileInView={{ x: 1, opacity: 1 }}
-            whileHover={{ scale: 1.2, z: 10 }}
-            exit={{ x: -100, opacity: 0 }}
-            whileTap={{ scale: 0.8 }}
-            className="w-full md:pt-4 md:mt-0 md:w-1/2 flex  justify-center  md:justify-start text-xl md:text-3xl pb-3 md:px-3 px-2"
-          >
-            <a
-              href="https://t.me/+cTOn5enFWBQ2YjJk"
-              className="bg-[#182538] px-2 py-1 rounded yellow"
-            >
-              Click here to get today's prediction for free.
-            </a>
-          </motion.div>
+        <div className="w-full   flex   justify-center px-4 ">
+          <TelegramAds />
         </div>
         <div className="relative w-full md:flex md:justify-start">
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full  flex items-center justify-center bold my-12 text-3xl">
               {/* google ads */}
-{/* 
+              {/* 
               <GoogleAds
                 glass="w-full h-full md:h-60 pr-2 hidden md:inline-block"
                 slot="8326626700"

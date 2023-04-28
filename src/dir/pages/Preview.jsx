@@ -10,6 +10,7 @@ import { BiFootball } from "react-icons/bi";
 import { FaTelegram } from "react-icons/fa";
 import { motion } from "framer-motion";
 import GoogleAds from "../component/GoogleAds";
+import { TelegramAds } from "../component/TelegramAds";
 
 function Preview() {
   axios.defaults.withCredentials = true;
@@ -19,18 +20,17 @@ function Preview() {
   const { data, isError, isLoading } = useQuery(
     ["match-details"],
     async () => await axios.get(`${process.env.REACT_APP_ADMIN}/post/${id}`)
-  ); 
+  );
   const [links, setLink] = useState(false);
 
   if (isError) {
     navigate("/not-available");
   }
-   
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   });
-   
+
   if (isLoading) {
     return <Loader />;
   }
@@ -42,7 +42,6 @@ function Preview() {
         <div className="w-full text-center   mt-6 font-bold text-3xl flex items-center justify-center space-x-6 ">
           <BiFootball className="yellow" size={32} />{" "}
           <h1>
-        
             {data ? (
               <div className="w-full  flex items-center justify-center  text-base">
                 <div className="w-2/4 flex items-center justify-center ">
@@ -52,17 +51,22 @@ function Preview() {
                     className="text-xs h-10 w-10 rounded-full mr-2"
                     src={`https://server.easystreams.net/${data.data[0].home_img}`}
                   />
-                <span className="text-sm md:text-xl">  {data.data[0].home_team}{" "} </span>
+                  <span className="text-sm md:text-xl">
+                    {" "}
+                    {data.data[0].home_team}{" "}
+                  </span>
                 </div>{" "}
                 <div className="w-1/4">
                   <span className="px-1 mx-2 py-.5 rounded bg-[#182538] text-[#f3e012]">
                     vs
                   </span>{" "}
                 </div>
-
                 <div className="w-2/4  flex items-center justify-center">
                   {" "}
-                <span className="text-sm md:text-xl"> {data.data[0].away_team}{" "}</span> 
+                  <span className="text-sm md:text-xl">
+                    {" "}
+                    {data.data[0].away_team}{" "}
+                  </span>
                   <img
                     alt="team 2"
                     className="h-10 w-10 rounded-full ml-2 text-xs"
@@ -75,54 +79,13 @@ function Preview() {
           <BiFootball className="yellow" size={32} />
         </div>
 
-        <div className="w-full flex-wrap  h-48 mb-4 bg-yellow-500 flex items-center justify-center bold my-12 text-3xl text-[#182538] overflow-x-hidden">
-          <motion.div
-            initial={{ x: -100, opacity: 0, scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.3 }}
-            whileInView={{ x: 1, opacity: 1 }}
-            whileHover={{ scale: 1.2, z: 10 }}
-            exit={{ x: -100, opacity: 0 }}
-            whileTap={{ scale: 0.8 }}
-            className="w-full md:w-1/2 flex flex-wrap items-center  justify-center text-xl md:text-3xl"
-          >
-            <a href="https://t.me/easystreamsport">
-              {" "}
-              <FaTelegram className="  mr-2" size={72} />
-            </a>{" "}
-            <div className="block">
-              {" "}
-              <a
-                href="https://t.me/+cTOn5enFWBQ2YjJk"
-                className="bg-[#182538] px-2 py-1 rounded yellow"
-              >
-                Telegram
-              </a>
-            </div>
-          </motion.div>
-          <motion.div
-            initial={{ x: 100, opacity: 0, scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.3 }}
-            whileInView={{ x: 1, opacity: 1 }}
-            whileHover={{ scale: 1.2, z: 10 }}
-            exit={{ x: -100, opacity: 0 }}
-            whileTap={{ scale: 0.8 }}
-            className="w-full md:pt-4 md:mt-0 md:w-1/2 flex  justify-center  md:justify-start text-xl md:text-3xl pb-3 md:px-3 px-2"
-          >
-            <a
-              href="https://t.me/+cTOn5enFWBQ2YjJk"
-              className="bg-[#182538] px-2 py-1 rounded yellow"
-            >
-              Click here to get today's prediction for free.
-            </a>
-          </motion.div>
+        <div className="w-full flex-wrap  h-auto mb-4 flex items-center justify-center bold my-12 overflow-x-hidden">
+          <TelegramAds />
         </div>
         <div className="relative w-full md:flex md:justify-start ">
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full bg-yellow-400 flex items-center justify-center bold my-12 text-3xl">
               {/* google ads */}
-             
             </div>
           </div>
           <div className="w-full md:w-3/5 px-2">
@@ -192,8 +155,7 @@ function Preview() {
                         onClick={
                           data
                             ? data.data[0].link_one.length > 2
-                              ? () =>
-                                  window.open(data.data[0].link_one)
+                              ? () => window.open(data.data[0].link_one)
                               : null
                             : null
                         }
@@ -211,8 +173,7 @@ function Preview() {
                         onClick={
                           data
                             ? data.data[0].link_two.length > 2
-                              ? () =>
-                                  window.open(data.data[0].link_two)
+                              ? () => window.open(data.data[0].link_two)
                               : null
                             : null
                         }
@@ -230,10 +191,7 @@ function Preview() {
                         onClick={
                           data
                             ? data.data[0].link_three.length > 2
-                              ? () =>
-                                  window.open(
-                                    data.data[0].link_three
-                                  )
+                              ? () => window.open(data.data[0].link_three)
                               : null
                             : null
                         }
@@ -251,8 +209,7 @@ function Preview() {
                         onClick={
                           data
                             ? data.data[0].link_four.length > 2
-                              ? () =>
-                                  window.open(data.data[0].link_four)
+                              ? () => window.open(data.data[0].link_four)
                               : null
                             : null
                         }
@@ -284,7 +241,7 @@ function Preview() {
                 </tbody>
               </table>
             </div>
-              
+
             <div className="w-full p-5   flex items-center justify-center text-base font-bold">
               {data && data.data[0].title}
             </div>
@@ -293,7 +250,7 @@ function Preview() {
           <div className="w-full  md:w-1/5">
             <div className="w-full h-full bg-yellow-400 flex items-center justify-center bold my-12 text-3xl">
               {/* google ads */}
-               
+
               {/* <GoogleAds
                 glass="w-full h-full md:h-60 pr-2 hidden md:inline-block"
                 slot="8326626700"
