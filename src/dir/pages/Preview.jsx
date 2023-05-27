@@ -11,6 +11,7 @@ import { FaTelegram } from "react-icons/fa";
 import { motion } from "framer-motion";
 import GoogleAds from "../component/GoogleAds";
 import { TelegramAds } from "../component/TelegramAds";
+import { TelegramLink } from "../component/TelegramLink";
 
 function Preview() {
   axios.defaults.withCredentials = true;
@@ -80,7 +81,7 @@ function Preview() {
         </div>
 
         <div className="w-full flex-wrap  h-auto mb-4 flex items-center justify-center bold my-12 overflow-x-hidden">
-          <TelegramAds />
+          <TelegramLink />
         </div>
         <div className="relative w-full md:flex md:justify-start ">
           <div className="w-full  md:w-1/5">

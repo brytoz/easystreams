@@ -18,6 +18,7 @@ import GoogleAds from "../component/GoogleAds";
 import Marquee from "../component/Marquee";
 import { DarkModeContext } from "../contexts/darkModeContext";
 import { TelegramAds } from "../component/TelegramAds";
+import { TelegramLink } from "../component/TelegramLink";
 
 export default function Home() {
   axios.defaults.withCredentials = true;
@@ -43,9 +44,9 @@ export default function Home() {
       <Hero />
 
       <Marquee />
-      <div className="w-full flex-wrap relative overflow-hidden ">
+      <div className="w-full flex-wrap relative overflow-hidden">
         <div className="w-full   flex   justify-center px-4 ">
-          <TelegramAds />
+          <TelegramLink />
         </div>
         <div className="relative w-full md:flex md:justify-start">
           <div className="w-full  md:w-1/5">
